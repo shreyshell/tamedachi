@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "name": "Tamedachi Feature Reminder",
+  "description": "Reminds about testing and design consistency when adding new features to Tamedachi",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/app/**/*.tsx",
+      "**/app/**/*.ts",
+      "**/components/**/*.tsx",
+      "**/lib/**/*.ts",
+      "**/api/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A Tamedachi component or service file was just edited. Please check:\n\n1. **Property-Based Tests**: If this is a new utility function (score calculation, age calculation, health state mapping, URL validation), remind the user to add a property-based test using fast-check with the format: `// Feature: gamified-media-tracker, Property X: [description]`\n\n2. **Design Consistency**: If this is a UI component, verify it matches the Figma design (colors, spacing, typography, whimsical sky theme)\n\n3. **Error Handling**: Ensure the code handles errors gracefully and shows user-friendly messages\n\n4. **Type Safety**: Check that TypeScript types are explicit and interfaces are properly defined\n\n5. **Pet Logic**: If this involves pet health or growth calculations, verify the formulas are correct:\n   - Health Score = average of all credibility scores\n   - Age = floor(goodContentCount / 100)\n   - Good Content threshold = score >= 50\n\nOnly mention items that are relevant to the specific file that was edited. Keep the tone friendly and encouraging, matching the Tamedachi playful persona."
+  },
+  "shortName": "tamedachi-reminder"
+}

@@ -1,0 +1,473 @@
+@import "tailwindcss";
+
+:root {
+  /* Tamedachi Sky Theme Colors - Primary Palette */
+  --sky-blue: #87CEEB;
+  --sky-blue-light: #B0E0E6;
+  --sky-blue-dark: #4A90A4;
+  --sky-gradient-start: #87CEEB;
+  --sky-gradient-mid: #B0E0E6;
+  --sky-gradient-end: #E0F2F7;
+  
+  /* Cloud & Nature Colors */
+  --cloud-white: #F8F9FA;
+  --cloud-shadow: #E8EAED;
+  --nature-green: #90EE90;
+  --nature-green-dark: #228B22;
+  --nature-green-light: #C8F7C8;
+  --tree-brown: #8B7355;
+  --grass-green: #7CB342;
+  
+  /* Accent Colors */
+  --satellite-gray: #A9A9A9;
+  --satellite-silver: #C0C0C0;
+  --sun-yellow: #FFD700;
+  --sun-orange: #FFA500;
+  
+  /* Health State Colors - Pet Moods */
+  --health-excellent: #4CAF50;
+  --health-excellent-bg: #E8F5E9;
+  --health-good: #8BC34A;
+  --health-good-bg: #F1F8E9;
+  --health-neutral: #FFC107;
+  --health-neutral-bg: #FFF8E1;
+  --health-poor: #FF9800;
+  --health-poor-bg: #FFF3E0;
+  --health-sick: #F44336;
+  --health-sick-bg: #FFEBEE;
+  
+  /* Score Colors */
+  --score-excellent: #4CAF50;
+  --score-good: #8BC34A;
+  --score-questionable: #FFC107;
+  --score-poor: #F44336;
+  
+  /* UI Base Colors */
+  --background: #FFFFFF;
+  --foreground: #1F2937;
+  --foreground-light: #6B7280;
+  --foreground-lighter: #9CA3AF;
+  
+  /* Border & Divider Colors */
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+  --border-dark: #D1D5DB;
+  
+  /* Shadow Colors */
+  --shadow-sm: rgba(0, 0, 0, 0.05);
+  --shadow-md: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+  --shadow-xl: rgba(0, 0, 0, 0.2);
+  
+  /* Glass Effect Colors */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shine: rgba(255, 255, 255, 0.3);
+  
+  /* Interactive States */
+  --hover-overlay: rgba(0, 0, 0, 0.05);
+  --active-overlay: rgba(0, 0, 0, 0.1);
+  --focus-ring: rgba(135, 206, 235, 0.5);
+}
+
+@theme inline {
+  /* Sky Theme Colors */
+  --color-sky-blue: var(--sky-blue);
+  --color-sky-blue-light: var(--sky-blue-light);
+  --color-sky-blue-dark: var(--sky-blue-dark);
+  --color-cloud-white: var(--cloud-white);
+  --color-cloud-shadow: var(--cloud-shadow);
+  --color-nature-green: var(--nature-green);
+  --color-nature-green-dark: var(--nature-green-dark);
+  --color-nature-green-light: var(--nature-green-light);
+  --color-tree-brown: var(--tree-brown);
+  --color-grass-green: var(--grass-green);
+  --color-satellite-gray: var(--satellite-gray);
+  --color-satellite-silver: var(--satellite-silver);
+  --color-sun-yellow: var(--sun-yellow);
+  --color-sun-orange: var(--sun-orange);
+  
+  /* Health State Colors */
+  --color-health-excellent: var(--health-excellent);
+  --color-health-excellent-bg: var(--health-excellent-bg);
+  --color-health-good: var(--health-good);
+  --color-health-good-bg: var(--health-good-bg);
+  --color-health-neutral: var(--health-neutral);
+  --color-health-neutral-bg: var(--health-neutral-bg);
+  --color-health-poor: var(--health-poor);
+  --color-health-poor-bg: var(--health-poor-bg);
+  --color-health-sick: var(--health-sick);
+  --color-health-sick-bg: var(--health-sick-bg);
+  
+  /* Score Colors */
+  --color-score-excellent: var(--score-excellent);
+  --color-score-good: var(--score-good);
+  --color-score-questionable: var(--score-questionable);
+  --color-score-poor: var(--score-poor);
+  
+  /* Base Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-foreground-light: var(--foreground-light);
+  --color-foreground-lighter: var(--foreground-lighter);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-border-dark: var(--border-dark);
+  
+  /* Glass Effect */
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-glass-shine: var(--glass-shine);
+  
+  /* Typography - Playful & Friendly Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* Font Sizes - Mobile-first (440px base) */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+  
+  /* Spacing - Mobile-first (440px base) */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;    /* 4px */
+  --spacing-2: 0.5rem;     /* 8px */
+  --spacing-3: 0.75rem;    /* 12px */
+  --spacing-4: 1rem;       /* 16px */
+  --spacing-5: 1.25rem;    /* 20px */
+  --spacing-6: 1.5rem;     /* 24px */
+  --spacing-8: 2rem;       /* 32px */
+  --spacing-10: 2.5rem;    /* 40px */
+  --spacing-12: 3rem;      /* 48px */
+  --spacing-16: 4rem;      /* 64px */
+  --spacing-20: 5rem;      /* 80px */
+  
+  /* Border Radius - Playful & Rounded */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-3xl: 2rem;      /* 32px */
+  --radius-full: 9999px;
+  
+  /* Shadows - Soft & Whimsical */
+  --shadow-xs: 0 1px 2px 0 var(--shadow-sm);
+  --shadow-sm: 0 2px 4px 0 var(--shadow-sm);
+  --shadow-md: 0 4px 8px -2px var(--shadow-md);
+  --shadow-lg: 0 8px 16px -4px var(--shadow-lg);
+  --shadow-xl: 0 12px 24px -6px var(--shadow-xl);
+  --shadow-2xl: 0 20px 40px -8px var(--shadow-xl);
+  
+  /* Transitions - Smooth & Playful */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Z-index Layers */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  margin: 0;
+  padding: 0;
+  /* Improve touch responsiveness */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  /* Smooth font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings - Playful & Bold */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-4xl);
+}
+
+h2 {
+  font-size: var(--text-3xl);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+}
+
+/* Ensure buttons and interactive elements have proper touch behavior */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+/* Prevent text selection on interactive elements during touch */
+button, a, [role="button"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+textarea:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Egg Animation Keyframes */
+@keyframes shake-left {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+@keyframes shake-right {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes crack {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  50% { transform: scale(0.98); }
+  75% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes disappear {
+  0% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: scale(0.8);
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(0);
+  }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Animation Classes */
+.animate-shake-left {
+  animation: shake-left 0.5s ease-in-out;
+}
+
+.animate-shake-right {
+  animation: shake-right 0.5s ease-in-out;
+}
+
+.animate-crack {
+  animation: crack 0.8s ease-in-out;
+}
+
+.animate-disappear {
+  animation: disappear 0.5s ease-in-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+/* Utility Classes */
+
+/* Glass Effect - Whimsical Container */
+.glass-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--glass-border);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 0 20px var(--glass-shine);
+}
+
+/* Sky Gradient Background */
+.bg-sky-gradient {
+  background: linear-gradient(
+    to bottom,
+    var(--sky-gradient-start) 0%,
+    var(--sky-gradient-mid) 50%,
+    var(--sky-gradient-end) 100%
+  );
+}
+
+/* Button Styles - Playful & Touch-Optimized */
+.btn-primary {
+  background: var(--sky-blue);
+  color: white;
+  font-weight: var(--font-semibold);
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-xl);
+  border: none;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--sky-blue-dark);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Card Styles - Soft & Rounded */
+.card {
+  background: white;
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Decorative Elements */
+.cloud-decoration {
+  opacity: 0.7;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.nature-decoration {
+  opacity: 0.6;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Health State Indicators */
+.health-excellent {
+  color: var(--health-excellent);
+  background: var(--health-excellent-bg);
+}
+
+.health-good {
+  color: var(--health-good);
+  background: var(--health-good-bg);
+}
+
+.health-neutral {
+  color: var(--health-neutral);
+  background: var(--health-neutral-bg);
+}
+
+.health-poor {
+  color: var(--health-poor);
+  background: var(--health-poor-bg);
+}
+
+.health-sick {
+  color: var(--health-sick);
+  background: var(--health-sick-bg);
+}
+
+/* Score Indicators */
+.score-excellent {
+  color: var(--score-excellent);
+}
+
+.score-good {
+  color: var(--score-good);
+}
+
+.score-questionable {
+  color: var(--score-questionable);
+}
+
+.score-poor {
+  color: var(--score-poor);
+}
+
+/* Responsive Text Utilities */
+@media (min-width: 768px) {
+  h1 {
+    font-size: var(--text-5xl);
+  }
+  
+  h2 {
+    font-size: var(--text-4xl);
+  }
+  
+  h3 {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* Loading Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
