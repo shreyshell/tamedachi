@@ -471,3 +471,8 @@ html {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
+/* Custom Tailwind utilities */
+.bg-sky-blue {
+  background-color: var(--sky-blue);
+}

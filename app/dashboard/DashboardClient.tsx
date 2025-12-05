@@ -145,63 +145,58 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
 
   return (
     <div className="relative flex min-h-screen flex-col bg-sky-gradient overflow-hidden">
-      {/* Decorative clouds - responsive sizing */}
-      <div className="absolute top-6 left-4 text-4xl md:top-10 md:left-10 md:text-6xl lg:text-7xl cloud-decoration animate-pulse">☁️</div>
-      <div className="absolute top-12 right-8 text-3xl md:top-20 md:right-20 md:text-4xl lg:text-5xl cloud-decoration animate-pulse" style={{ animationDelay: '1s' }}>☁️</div>
-      <div className="absolute top-24 left-1/3 text-3xl md:top-40 md:text-5xl lg:text-6xl cloud-decoration animate-pulse" style={{ animationDelay: '2s' }}>☁️</div>
-      <div className="absolute bottom-32 right-1/4 text-4xl md:text-5xl cloud-decoration animate-pulse" style={{ animationDelay: '3s' }}>☁️</div>
+      {/* Decorative clouds - positioned to match Figma */}
+      <div className="absolute top-[23px] left-[-293px] text-4xl cloud-decoration animate-pulse opacity-70">☁️</div>
+      <div className="absolute top-[106px] left-[255px] text-5xl cloud-decoration animate-pulse opacity-80" style={{ animationDelay: '2s' }}>☁️</div>
+      <div className="absolute top-[238px] right-[-283px] text-6xl cloud-decoration animate-pulse opacity-70" style={{ animationDelay: '1s' }}>☁️</div>
       
-      {/* Satellite decoration - responsive sizing */}
-      <div className="absolute top-20 right-4 text-2xl md:top-32 md:right-10 md:text-3xl lg:text-4xl opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }}>🛰️</div>
-      
-      {/* Sun decoration */}
-      <div className="absolute top-8 right-8 text-3xl md:top-12 md:right-12 md:text-4xl opacity-60 animate-pulse" style={{ animationDelay: '0.5s' }}>☀️</div>
+      {/* Satellite decoration */}
+      <div className="absolute top-[145px] left-[131px] text-3xl opacity-60 animate-pulse" style={{ animationDelay: '1.5s' }}>🛰️</div>
 
-      {/* Main content */}
-      <div className="flex flex-1 items-center justify-center px-4 py-6 md:py-8 lg:py-12">
-        <div className="w-full max-w-md lg:max-w-lg">
-          {/* Welcome message */}
-          <div className="mb-6 md:mb-8 text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-2xl">
-              Welcome to Tamedachi! 🌟
-            </h1>
-            <p className="mt-3 text-sm md:text-base text-white/90 font-medium drop-shadow-lg truncate px-4">
-              {userEmail}
-            </p>
-          </div>
-
-          {/* Egg or Pet display - responsive sizing */}
-          <div className="flex min-h-[350px] md:min-h-[400px] lg:min-h-[450px] items-center justify-center rounded-3xl glass-container p-6 md:p-8 lg:p-10 shadow-2xl">
-            {!pet && !isHatching && (
-              <div className="text-center">
-                <Egg onHatch={handleHatch} />
-                {error && (
-                  <p className="mt-4 text-sm text-red-600">
-                    {error}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {isHatching && !pet && (
-              <div className="text-center">
-                <div className="text-5xl md:text-6xl lg:text-7xl animate-bounce">🐣</div>
-                <p className="mt-4 text-base md:text-lg font-semibold text-sky-600">
-                  Creating your Tamedachi...
-                </p>
-              </div>
-            )}
-
+      {/* Main content - centered vertically */}
+      <div className="flex flex-1 items-center justify-center px-4">
+        <div className="w-full max-w-[440px] relative">
+          {/* Pet Glass Container */}
+          <div className="absolute top-[269px] left-[11px] w-[418px] h-[418px] rounded-3xl glass-container shadow-2xl flex items-center justify-center">
             {pet && (
-              <div className="w-full">
+              <div className="w-full h-full flex items-center justify-center">
                 <PetComponent pet={pet} />
               </div>
             )}
           </div>
 
-          {/* Navigation buttons */}
+          {/* Egg display (outside glass container) */}
+          {!pet && !isHatching && (
+            <>
+              <div className="absolute top-[279px] left-[70px]">
+                <Egg onHatch={handleHatch} />
+              </div>
+              <div className="absolute top-[737px] left-[69px] w-[303px] text-center">
+                <p className="text-2xl font-semibold text-gray-800">
+                  Tap the egg to hatch your Tamedachi!
+                </p>
+              </div>
+              {error && (
+                <p className="absolute top-[800px] left-0 right-0 text-center text-sm text-red-600">
+                  {error}
+                </p>
+              )}
+            </>
+          )}
+
+          {/* Hatching state */}
+          {isHatching && !pet && (
+            <div className="absolute top-[350px] left-0 right-0 text-center">
+              <div className="text-7xl animate-bounce">🐣</div>
+              <p className="mt-4 text-lg font-semibold text-sky-600">
+                Creating your Tamedachi...
+              </p>
+            </div>
+          )}
+
+          {/* Navigation buttons - positioned at bottom */}
           {showNavigation && (
-            <div className="mt-6 md:mt-8">
+            <div className="absolute bottom-[39px] left-0 right-0">
               <NavigationButtons
                 onHealthClick={handleOpenHealthModal}
                 onURLClick={handleOpenURLModal}
@@ -213,8 +208,8 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         </div>
       </div>
 
-      {/* Nature elements at bottom - responsive sizing */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around pb-2 md:pb-4 text-3xl md:text-4xl lg:text-5xl nature-decoration">
+      {/* Nature elements at bottom */}
+      <div className="absolute bottom-0 left-[-85px] right-0 flex justify-around text-5xl nature-decoration opacity-60">
         <span>🌳</span>
         <span>🌲</span>
         <span>🌿</span>

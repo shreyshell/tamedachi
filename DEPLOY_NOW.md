@@ -14,7 +14,28 @@ This verifies everything is ready. If it passes, continue!
 
 ---
 
-## Step 2: Push to GitHub 📤
+## Step 2: Connect to GitHub & Push 📤
+
+### First Time Setup
+
+If you haven't connected to GitHub yet:
+
+1. **Create a GitHub repository** at [github.com/new](https://github.com/new)
+   - Name: `tamedachi`
+   - Don't initialize with README (you already have one)
+   - Click "Create repository"
+
+2. **Connect your local repository:**
+   ```bash
+   # Replace YOUR_USERNAME with your GitHub username
+   git remote add origin https://github.com/YOUR_USERNAME/tamedachi.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+**Need detailed help?** See [GITHUB_SETUP.md](./GITHUB_SETUP.md)
+
+### Already Connected to GitHub?
 
 ```bash
 git add .
