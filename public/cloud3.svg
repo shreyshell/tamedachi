@@ -1,20 +1,17 @@
-<svg width="265" height="118" viewBox="0 0 265 118" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g opacity="0.9" filter="url(#filter0_g_4_185)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M-281.922 111.929C-288.242 110.698 -293 105.277 -293 98.7805C-293 91.3781 -286.82 85.3703 -279.199 85.3703C-276.543 85.3703 -274.062 86.1047 -271.949 87.3703C-258.172 65.7844 -233.281 51.3547 -204.902 51.3547C-197.41 51.3547 -190.172 52.3586 -183.312 54.2336C-174.859 38.4758 -160.473 25.3508 -141.949 18.4172C-116.621 8.94062 -89.8828 13.4133 -71.0195 27.9328C-62.6602 14.3586 -47.6406 5.3 -30.5117 5.3C-14.7617 5.3 -0.792969 12.9641 7.85938 24.7531C21.7773 12.5695 39.3203 5.3 58.3672 5.3C88.1875 5.3 114.32 23.1203 128.641 49.7258C131.457 49.382 134.328 49.2062 137.238 49.2062C155.168 49.2062 171.527 55.8781 183.93 66.8508C186.82 66.4133 189.777 66.1867 192.801 66.1867C210.148 66.1867 225.66 73.7062 235.848 85.4797C238.32 83.5187 241.418 82.3547 244.777 82.3547C252.84 82.3547 259.379 89.0383 259.379 97.2727C259.379 104.413 254.457 110.39 247.891 111.851C247.91 111.964 247.918 112.077 247.938 112.191H-281.98C-281.961 112.105 -281.941 112.015 -281.922 111.929Z" fill="url(#paint0_linear_4_185)"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="163.0pt" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 363.606 163" width="363.6062801453446pt" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
-<filter id="filter0_g_4_185" x="-298.3" y="-9.53674e-07" width="562.979" height="117.491" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feTurbulence type="fractalNoise" baseFrequency="1.25 1.25" numOctaves="3" seed="2586" />
-<feDisplacementMap in="shape" scale="10.600000381469727" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
-<feMerge result="effect1_texture_4_185">
-<feMergeNode in="displacedImage"/>
-</feMerge>
-</filter>
-<linearGradient id="paint0_linear_4_185" x1="37.5003" y1="112.191" x2="-71.1214" y2="5.29999" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F0EFEB"/>
-<stop offset="1" stop-color="white"/>
+<linearGradient gradientTransform="matrix(-262.409 -151.91 151.91 -262.409 149.112 156.631)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#f0efeb"/>
+<stop offset="1" stop-color="#ffffff"/>
 </linearGradient>
 </defs>
+<clipPath id="ArtboardFrame">
+<rect height="163" width="363.606" x="0" y="0"/>
+</clipPath>
+<g clip-path="url(#ArtboardFrame)" id="Untitled">
+<path d="M335.576 156.631C347.056 156.631 356.377 147.608 356.377 136.494C356.377 125.377 347.056 116.354 335.576 116.354C331.076 116.354 326.908 117.741 323.502 120.096C327.763 102.815 315.615 83.5339 294.998 75.8972C282.193 71.155 268.943 71.948 258.818 77.0339C256.56 58.6472 241.275 40.5886 218.732 32.2371C195.33 23.573 171.052 27.9363 157.619 41.5769C130.99 18.655 95.9122 4.72147 57.4942 4.72147C8.87321 4.72147-34.4008 27.0379-61.9588 61.6433C-71.8618 58.8308-82.3498 57.323-93.1898 57.323C-124.682 57.323-153.1 70.0457-173.182 90.4285C-182.28 85.9949-192.53 83.5066-203.37 83.5066C-222.401 83.5066-239.631 91.1941-251.99 103.584C-257.272 99.2019-264.069 96.5613-271.479 96.5613C-284.6 96.5613-295.779 104.815-300.022 116.358C-311.381 116.491-320.561 125.463-320.561 136.494C-320.561 146.932-312.338 155.526-301.83 156.534L-301.83 156.631L335.576 156.631Z" fill="url(#LinearGradient)" fill-rule="evenodd" opacity="0.9" stroke="none"/>
+</g>
 </svg>

@@ -142,13 +142,18 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
       <div className="relative w-[440px] h-[956px] bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]" style={{ clipPath: 'inset(0)' }}>
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
-        {/* Cloud 3 - Peek from left edge */}
-        <div className="absolute" style={{ left: '-50px', top: '23px' }}>
+        {/* Cloud 3 - Above satellite, aligned to left edge */}
+        <div className="absolute" style={{ left: '0px', top: '50px' }}>
           <img src="/cloud3.svg" alt="" width={265} height={118} />
         </div>
 
-        {/* Cloud 2 - Peek from left edge */}
-        <div className="absolute" style={{ left: '-100px', top: '238px' }}>
+        {/* Satellite - X=116, Y=145 */}
+        <div className="absolute" style={{ left: '116px', top: '145px' }}>
+          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
+        </div>
+
+        {/* Cloud 2 - Below satellite, aligned to left edge */}
+        <div className="absolute" style={{ left: '0px', top: '240px' }}>
           <img src="/cloud2.svg" alt="" width={400} height={163} />
         </div>
 
@@ -157,19 +162,14 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
         </div>
 
-        {/* Satellite - X=116, Y=145 */}
-        <div className="absolute" style={{ left: '116px', top: '145px' }}>
-          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
-        </div>
-
         {/* Station - X=352, Y=795 */}
         <div className="absolute" style={{ left: '352px', top: '795px' }}>
           <img src="/station.svg" alt="" width={71} height={89} />
         </div>
 
-        {/* Field - X=-85, Y=793 (matches Figma Welcome page) */}
-        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/field.svg" alt="" width={610} height={163} />
+        {/* Field - Bottom landscape, positioned to fill viewport width */}
+        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px' }}>
+          <img src="/field.svg" alt="" width={610} height={163} style={{ objectFit: 'cover', width: '100%', height: '100%', objectPosition: 'center' }} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}
