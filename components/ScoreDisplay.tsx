@@ -26,39 +26,9 @@ export default function ScoreDisplay({
   onClose 
 }: ScoreDisplayProps) {
   const [showAnalysis, setShowAnalysis] = useState(false)
-  
-  // Determine color based on score threshold (Requirements 6.1, 6.2)
-  const scoreColor = score >= 50 ? 'text-green-600' : 'text-red-600'
-  const bgColor = score >= 50 ? 'bg-green-50' : 'bg-red-50'
-  const borderColor = score >= 50 ? 'border-green-200' : 'border-red-200'
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]">
-      {/* Logout Button */}
-      <LogoutButton />
-
-      {/* Background Decorative Vectors - Same as Dashboard */}
-      <div className="absolute" style={{ left: '-293px', top: '23px' }}>
-        <img src="/cloud3.svg" alt="" width={265} height={118} />
-      </div>
-      <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-        <img src="/cloud2.svg" alt="" width={400} height={163} />
-      </div>
-      <div className="absolute" style={{ left: '255px', top: '106px' }}>
-        <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
-      </div>
-      <div className="absolute" style={{ left: '116px', top: '145px' }}>
-        <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
-      </div>
-      <div className="absolute" style={{ left: '352px', top: '795px' }}>
-        <img src="/station.svg" alt="" width={71} height={89} />
-      </div>
-      <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
-        <img src="/field.svg" alt="" width={610} height={163} style={{ position: 'absolute', left: '-85px', bottom: '0px' }} />
-      </div>
-
-      {/* Modal Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 py-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-8" style={{ background: 'rgba(0, 0, 0, 0.4)' }}>
         <div 
           className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
           style={{
@@ -168,7 +138,6 @@ export default function ScoreDisplay({
           Got it!
         </button>
         </div>
-      </div>
     </div>
   )
 }

@@ -51,10 +51,13 @@ export default function SignUpPage() {
     setLoading(true)
 
     try {
-      // Sign up new user
+      // Sign up new user (with auto-confirm, no email verification)
       const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: undefined,
+        }
       })
 
       if (signUpError) {

@@ -143,12 +143,12 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
         {/* Cloud 3 - Peek from left edge */}
-        <div className="absolute" style={{ left: '-100px', top: '23px' }}>
+        <div className="absolute" style={{ left: '-50px', top: '23px' }}>
           <img src="/cloud3.svg" alt="" width={265} height={118} />
         </div>
 
         {/* Cloud 2 - Peek from left edge */}
-        <div className="absolute" style={{ left: '-150px', top: '238px' }}>
+        <div className="absolute" style={{ left: '-100px', top: '238px' }}>
           <img src="/cloud2.svg" alt="" width={400} height={163} />
         </div>
 
@@ -167,9 +167,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/station.svg" alt="" width={71} height={89} />
         </div>
 
-        {/* Field - Bottom landscape */}
-        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
-          <img src="/field.svg" alt="" width={610} height={163} style={{ position: 'absolute', left: '-85px', bottom: '0px' }} />
+        {/* Field - X=-85, Y=793 (matches Figma Welcome page) */}
+        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
+          <img src="/field.svg" alt="" width={610} height={163} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}
