@@ -32,6 +32,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   const [showHealthModal, setShowHealthModal] = useState(false)
   const [showGrowthModal, setShowGrowthModal] = useState(false)
   const [activeButton, setActiveButton] = useState<'health' | 'url' | 'growth' | null>(null)
+  const [eggTapCount, setEggTapCount] = useState(0)
 
 
 
@@ -179,61 +180,72 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <LogoutButton />
         </div>
 
-        {/* Pet Glass Container - X=11, Y=269, W=418, H=418 */}
-        <div 
-          className="absolute rounded-[32px] flex items-center justify-center"
-          style={{
-            left: '11px',
-            top: '269px',
-            width: '418px',
-            height: '418px',
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '2px solid rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
-          }}
-        >
-          {!pet && !isHatching && (
-            <div className="flex flex-col items-center">
-              <Egg onHatch={handleHatch} />
-            </div>
-          )}
-
-          {isHatching && !pet && (
-            <div className="text-center">
-              <div className="text-7xl animate-bounce">🐣</div>
-              <p 
-                className="mt-4 text-lg font-semibold"
-                style={{
-                  fontFamily: 'Fredoka, sans-serif',
-                  color: '#1F2937'
-                }}
-              >
-                Creating your Tamedachi...
-              </p>
-            </div>
-          )}
-
-          {pet && (
-            <PetComponent pet={pet} />
-          )}
-        </div>
-
-        {/* Text below egg */}
+        {/* Egg Component - X=70, Y=279, W=300, H=399 (no glass container) */}
         {!pet && !isHatching && (
           <div 
-            className="absolute text-center"
+            className="absolute"
             style={{
-              left: '50%',
-              top: '737px',
-              transform: 'translateX(-50%)',
-              width: '303px'
+              left: '70px',
+              top: '279px'
             }}
           >
+            <Egg onHatch={handleHatch} onTapCountChange={setEggTapCount} />
+          </div>
+        )}
+
+        {/* Hatching Animation */}
+        {isHatching && !pet && (
+          <div 
+            className="absolute flex flex-col items-center justify-center"
+            style={{
+              left: '70px',
+              top: '279px',
+              width: '300px',
+              height: '399px'
+            }}
+          >
+            <div className="text-7xl animate-bounce">🐣</div>
             <p 
-              className="font-normal"
+              className="mt-4 text-lg font-semibold text-center"
               style={{
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#1F2937'
+              }}
+            >
+              Creating your Tamedachi...
+            </p>
+          </div>
+        )}
+
+        {/* Pet Glass Container - X=11, Y=269, W=418, H=418 (only shown when pet exists) */}
+        {pet && (
+          <div 
+            className="absolute rounded-[32px] flex items-center justify-center"
+            style={{
+              left: '11px',
+              top: '269px',
+              width: '418px',
+              height: '418px',
+              background: 'rgba(255, 255, 255, 0.25)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '2px solid rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+            }}
+          >
+            <PetComponent pet={pet} />
+          </div>
+        )}
+
+        {/* Text below egg - X=69, Y=737 */}
+        {!pet && !isHatching && (
+          <>
+            <p 
+              className="absolute font-normal"
+              style={{
+                left: '69px',
+                top: '737px',
+                width: '303px',
                 fontSize: '24px',
                 lineHeight: '24px',
                 fontFamily: 'Fredoka, sans-serif',
@@ -242,10 +254,32 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
             >
               Tap the egg to hatch your Tamedachi!
             </p>
+            
+            {/* Tap count message - X=134/140, Y=768 */}
+            {eggTapCount > 0 && eggTapCount < 3 && (
+              <p 
+                className="absolute font-normal"
+                style={{
+                  left: eggTapCount === 1 ? '134px' : '140px',
+                  top: '768px',
+                  width: eggTapCount === 1 ? '172px' : '160px',
+                  fontSize: '24px',
+                  lineHeight: '24px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#000000'
+                }}
+              >
+                {eggTapCount === 1 ? '2 more taps to hatch!' : '1 more tap to hatch!'}
+              </p>
+            )}
+            
             {error && (
               <p 
-                className="mt-2"
+                className="absolute text-center"
                 style={{
+                  left: '50%',
+                  top: '800px',
+                  transform: 'translateX(-50%)',
                   fontSize: '14px',
                   fontFamily: 'Fredoka, sans-serif',
                   color: '#DC2626'
@@ -254,7 +288,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
                 {error}
               </p>
             )}
-          </div>
+          </>
         )}
 
         {/* Navigation Buttons - Exact Figma Positions */}

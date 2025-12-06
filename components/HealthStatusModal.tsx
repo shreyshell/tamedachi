@@ -233,7 +233,7 @@ export default function HealthStatusModal({ isOpen, onClose, pet }: HealthStatus
                     color: '#000000'
                   }}
                 >
-                  {healthState?.label || 'Neutral'}
+                  {healthState?.state ? healthState.state.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Neutral'}
                 </p>
               </div>
             </div>
