@@ -71,9 +71,8 @@ export default function Egg({ onHatch, onTapCountChange }: EggProps) {
         // Same as tap3-left
         return 'translate(-16.1px, 43.2px) scale(1.107, 1.059)'
       case 'tap3-disappear':
-        // Shrink to center point (X=216, Y=472 from X=70, Y=279)
-        // Center of egg: X=220, Y=478.5
-        return 'translate(146px, 193px) scale(0.0001)'
+        // Shrink to center of egg (no translation, just scale down)
+        return 'scale(0.0001)'
       default:
         return 'none'
     }
@@ -101,44 +100,56 @@ export default function Egg({ onHatch, onTapCountChange }: EggProps) {
           priority
         />
 
-        {/* Crack 1 - Appears after tap 1 */}
+        {/* Crack 1 - Appears after tap 1 at X=9, Y=199 (relative to egg container at X=70, Y=279) */}
         {tapCount >= 1 && (
           <Image 
             src="/egg-crack1.svg" 
             alt="" 
             width={144} 
             height={169}
-            className={`absolute top-[100px] left-[80px] transition-opacity duration-300 ${
+            className={`absolute transition-opacity duration-300 ${
               animationPhase === 'tap1' ? 'animate-fade-in' : 'opacity-100'
             }`}
+            style={{
+              left: '9px',
+              top: '199px'
+            }}
             priority
           />
         )}
 
-        {/* Crack 2 - Appears after tap 2 */}
+        {/* Crack 2 - Appears after tap 2 at X=93, Y=52 */}
         {tapCount >= 2 && (
           <Image 
             src="/egg-crack2.svg" 
             alt="" 
             width={109} 
             height={138}
-            className={`absolute top-[130px] left-[95px] transition-opacity duration-300 ${
+            className={`absolute transition-opacity duration-300 ${
               animationPhase === 'tap2' ? 'animate-fade-in' : 'opacity-100'
             }`}
+            style={{
+              left: '93px',
+              top: '52px'
+            }}
           />
         )}
 
-        {/* Crack 3 - Appears after tap 2 */}
+        {/* Crack 3 - Appears after tap 2 at X=181, Y=105 */}
         {tapCount >= 2 && (
           <Image 
             src="/egg-crack3.svg" 
             alt="" 
             width={93} 
             height={222}
-            className={`absolute top-[90px] left-[105px] transition-opacity duration-300 ${
+            className={`absolute transition-opacity duration-300 ${
               animationPhase === 'tap2' ? 'animate-fade-in' : 'opacity-100'
             }`}
-            style={{ animationDelay: '0.1s' }}
+            style={{
+              left: '181px',
+              top: '105px',
+              animationDelay: '0.1s'
+            }}
           />
         )}
       </div>

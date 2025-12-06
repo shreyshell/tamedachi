@@ -142,18 +142,18 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
       <div className="relative w-[440px] h-[956px] bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2] overflow-hidden">
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
-        {/* Cloud 3 - Adjusted to peek from left edge */}
-        <div className="absolute" style={{ left: '-200px', top: '23px' }}>
+        {/* Cloud 3 - Peek from left edge */}
+        <div className="absolute" style={{ left: '-100px', top: '23px' }}>
           <img src="/cloud3.svg" alt="" width={265} height={118} />
         </div>
 
-        {/* Cloud 2 - Adjusted to peek from left edge */}
-        <div className="absolute" style={{ left: '-250px', top: '238px' }}>
+        {/* Cloud 2 - Peek from left edge */}
+        <div className="absolute" style={{ left: '-150px', top: '238px' }}>
           <img src="/cloud2.svg" alt="" width={400} height={163} />
         </div>
 
-        {/* Cloud 1 - X=255, Y=106 */}
-        <div className="absolute" style={{ left: '255px', top: '106px' }}>
+        {/* Cloud 1 - Peek from right edge */}
+        <div className="absolute" style={{ left: '300px', top: '106px' }}>
           <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
         </div>
 
@@ -167,9 +167,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/station.svg" alt="" width={71} height={89} />
         </div>
 
-        {/* Nature - X=-85, Y=793 */}
-        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/nature.svg" alt="" width={610} height={163} />
+        {/* Field - Bottom landscape */}
+        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
+          <img src="/field.svg" alt="" width={610} height={163} style={{ position: 'absolute', left: '-85px', bottom: '0px' }} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}
@@ -243,17 +243,17 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           </div>
         )}
 
-        {/* Text below egg - X=69, Y=737 */}
+        {/* Text below egg */}
         {!pet && !isHatching && (
           <>
             <p 
-              className="absolute font-normal"
+              className="absolute font-normal text-center whitespace-nowrap"
               style={{
-                left: '69px',
+                left: '50%',
+                transform: 'translateX(-50%)',
                 top: '737px',
-                width: '303px',
-                fontSize: '24px',
-                lineHeight: '24px',
+                fontSize: eggTapCount > 0 ? '20px' : '24px',
+                lineHeight: eggTapCount > 0 ? '20px' : '24px',
                 fontFamily: 'Fredoka, sans-serif',
                 color: '#000000'
               }}
@@ -261,18 +261,19 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
               Tap the egg to hatch your Tamedachi!
             </p>
             
-            {/* Tap count message - X=134/140, Y=768 */}
+            {/* Tap count message with drop shadow */}
             {eggTapCount > 0 && eggTapCount < 3 && (
               <p 
-                className="absolute font-normal"
+                className="absolute font-normal text-center whitespace-nowrap"
                 style={{
-                  left: eggTapCount === 1 ? '134px' : '140px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
                   top: '768px',
-                  width: eggTapCount === 1 ? '172px' : '160px',
-                  fontSize: '24px',
-                  lineHeight: '24px',
+                  fontSize: '20px',
+                  lineHeight: '20px',
                   fontFamily: 'Fredoka, sans-serif',
-                  color: '#000000'
+                  color: '#FFF5A6',
+                  textShadow: '0px 4px 8px rgba(0,0,0,0.25)'
                 }}
               >
                 {eggTapCount === 1 ? '2 more taps to hatch!' : '1 more tap to hatch!'}

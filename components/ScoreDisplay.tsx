@@ -53,8 +53,8 @@ export default function ScoreDisplay({
       <div className="absolute" style={{ left: '352px', top: '795px' }}>
         <img src="/station.svg" alt="" width={71} height={89} />
       </div>
-      <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-        <img src="/nature.svg" alt="" width={610} height={163} />
+      <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
+        <img src="/field.svg" alt="" width={610} height={163} style={{ position: 'absolute', left: '-85px', bottom: '0px' }} />
       </div>
 
       {/* Modal Content */}

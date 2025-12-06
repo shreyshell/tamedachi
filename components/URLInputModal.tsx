@@ -157,8 +157,8 @@ export default function URLInputModal({
               <h2 
                 className="font-normal"
                 style={{
-                  fontSize: '24px',
-                  lineHeight: '24px',
+                  fontSize: '18px',
+                  lineHeight: '22px',
                   fontFamily: 'Fredoka, sans-serif',
                   fontWeight: 400,
                   color: '#000000'

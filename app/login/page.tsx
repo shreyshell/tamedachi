@@ -157,20 +157,22 @@ export default function LoginPage() {
           <div 
             className="relative rounded-[24px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]"
             style={{
-              height: '309.31px',
+              minHeight: '309.31px',
               background: 'rgba(255, 255, 255, 0.2)',
               backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)'
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              paddingBottom: '53.92px'
             }}
           >
             <form onSubmit={handleSubmit}>
               {/* Login Details */}
               <div 
-                className="absolute flex flex-col"
+                className="flex flex-col"
                 style={{
-                  left: '32.68px',
-                  top: '32.68px',
-                  width: '326.82px',
+                  paddingLeft: '32.68px',
+                  paddingRight: '32.68px',
+                  paddingTop: '32.68px',
+                  width: '100%',
                   gap: '20px'
                 }}
               >
@@ -287,11 +289,10 @@ export default function LoginPage() {
 
             {/* Sign Up Link */}
             <div 
-              className="absolute text-center"
+              className="text-center"
               style={{
-                left: '98.64px',
-                top: '255.39px',
-                width: '194.90px',
+                paddingTop: '20px',
+                paddingBottom: '32.68px',
                 height: '20px'
               }}
             >
