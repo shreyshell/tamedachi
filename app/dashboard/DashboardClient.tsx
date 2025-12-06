@@ -166,9 +166,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
         </div>
 
-        {/* Cloud 2 - Larger, floating lower right */}
-        <div className="absolute" style={{ left: '250px', top: '240px' }}>
-          <img src="/cloud2.svg" alt="" width={180} height={73} />
+        {/* Cloud 2 - Large, floating under satellite */}
+        <div className="absolute" style={{ left: '10px', top: '240px' }}>
+          <img src="/cloud2.svg" alt="" width={540} height={219} />
         </div>
 
         {/* Cloud 1 - Peek from right edge */}
@@ -266,8 +266,8 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
                 left: '50%',
                 transform: 'translateX(-50%)',
                 top: '737px',
-                fontSize: eggTapCount > 0 ? '20px' : '24px',
-                lineHeight: eggTapCount > 0 ? '20px' : '24px',
+                fontSize: '20px',
+                lineHeight: '20px',
                 fontFamily: 'Fredoka, sans-serif',
                 color: '#000000'
               }}
