@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { useState } from 'react'
 
 /**
  * LogoutButton component - Matches Figma design
@@ -11,24 +10,20 @@ import { useState } from 'react'
 export default function LogoutButton() {
   const router = useRouter()
   const supabase = createClient()
-  const [isLoading, setIsLoading] = useState(false)
 
   const handleLogout = async () => {
-    setIsLoading(true)
     try {
       await supabase.auth.signOut()
       router.push('/login')
     } catch (error) {
       console.error('Error logging out:', error)
-      setIsLoading(false)
     }
   }
 
   return (
     <button
       onClick={handleLogout}
-      disabled={isLoading}
-      className="w-full h-full rounded-full transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation flex items-center justify-center"
+      className="w-full h-full rounded-full transition-all hover:scale-105 active:scale-95 touch-manipulation flex items-center justify-center"
       style={{
         background: 'rgba(255, 255, 255, 0.25)',
         backdropFilter: 'blur(20px)',
@@ -46,7 +41,7 @@ export default function LogoutButton() {
           fontFamily: 'Fredoka, sans-serif'
         }}
       >
-        {isLoading ? 'Logging out...' : 'Logout'}
+        Logout
       </span>
     </button>
   )
