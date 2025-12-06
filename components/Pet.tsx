@@ -15,7 +15,6 @@ interface PetProps {
  */
 export default function Pet({ pet }: PetProps) {
   const [currentState, setCurrentState] = useState<PetHealthState>('neutral')
-  const [isTransitioning, setIsTransitioning] = useState(false)
 
   // Calculate health state whenever pet health score changes
   useEffect(() => {
@@ -23,11 +22,7 @@ export default function Pet({ pet }: PetProps) {
     const newState = healthStateInfo.state
 
     if (newState !== currentState) {
-      setIsTransitioning(true)
-      setTimeout(() => {
-        setCurrentState(newState)
-        setIsTransitioning(false)
-      }, 300)
+      setCurrentState(newState)
     }
   }, [pet.healthScore, currentState])
 
@@ -39,7 +34,6 @@ export default function Pet({ pet }: PetProps) {
           src: '/pet-veryhappy.svg',
           width: 303,
           height: 315,
-          animation: 'animate-bounce',
           label: 'Very Happy'
         }
       case 'healthy':
@@ -47,7 +41,6 @@ export default function Pet({ pet }: PetProps) {
           src: '/pet-healthy.svg',
           width: 329,
           height: 315,
-          animation: 'animate-pulse',
           label: 'Healthy'
         }
       case 'neutral':
@@ -55,7 +48,6 @@ export default function Pet({ pet }: PetProps) {
           src: '/pet-neutral.svg',
           width: 305,
           height: 287,
-          animation: '',
           label: 'Neutral'
         }
       case 'unhappy':
@@ -63,7 +55,6 @@ export default function Pet({ pet }: PetProps) {
           src: '/pet-unhappy.svg',
           width: 307,
           height: 315,
-          animation: '',
           label: 'Unhappy'
         }
       case 'sick':
@@ -71,7 +62,6 @@ export default function Pet({ pet }: PetProps) {
           src: '/pet-sick.svg',
           width: 369,
           height: 315,
-          animation: 'animate-pulse',
           label: 'Sick'
         }
     }
@@ -81,14 +71,8 @@ export default function Pet({ pet }: PetProps) {
 
   return (
     <div className="flex items-center justify-center">
-      {/* Pet SVG visual */}
-      <div
-        className={`
-          transition-all duration-500
-          ${petVisual.animation}
-          ${isTransitioning ? 'scale-0 rotate-180 opacity-0' : 'scale-100 rotate-0 opacity-100'}
-        `}
-      >
+      {/* Pet SVG visual - No animations */}
+      <div>
         <Image 
           src={petVisual.src}
           alt={petVisual.label}
