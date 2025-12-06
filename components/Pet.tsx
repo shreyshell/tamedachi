@@ -7,13 +7,15 @@ import Image from 'next/image'
 
 interface PetProps {
   pet: PetType
+  temporaryState?: PetHealthState | null
 }
 
 /**
  * Pet component that displays a virtual pet with different visual states
  * based on health score using Figma-designed SVG assets.
+ * Can temporarily show a different state (e.g., when reacting to new content).
  */
-export default function Pet({ pet }: PetProps) {
+export default function Pet({ pet, temporaryState = null }: PetProps) {
   const [currentState, setCurrentState] = useState<PetHealthState>('neutral')
 
   // Calculate health state whenever pet health score changes
@@ -25,6 +27,9 @@ export default function Pet({ pet }: PetProps) {
       setCurrentState(newState)
     }
   }, [pet.healthScore, currentState])
+
+  // Use temporary state if provided, otherwise use calculated state
+  const displayState = temporaryState || currentState
 
   // Get pet SVG file based on health state
   const getPetSVG = (state: PetHealthState) => {
@@ -67,7 +72,7 @@ export default function Pet({ pet }: PetProps) {
     }
   }
 
-  const petVisual = getPetSVG(currentState)
+  const petVisual = getPetSVG(displayState)
 
   return (
     <div className="flex items-center justify-center">

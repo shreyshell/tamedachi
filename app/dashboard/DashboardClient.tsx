@@ -9,7 +9,8 @@ import HealthStatusModal from '@/components/HealthStatusModal'
 import GrowthTimelineModal from '@/components/GrowthTimelineModal'
 import NavigationButtons from '@/components/NavigationButtons'
 import LogoutButton from '@/components/LogoutButton'
-import { Pet } from '@/lib/types'
+import { Pet, PetHealthState } from '@/lib/types'
+import { calculateHealthState } from '@/lib/utils/scoring'
 
 interface DashboardClientProps {
   initialPet: Pet | null
@@ -33,6 +34,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   const [showGrowthModal, setShowGrowthModal] = useState(false)
   const [activeButton, setActiveButton] = useState<'health' | 'url' | 'growth' | null>(null)
   const [eggTapCount, setEggTapCount] = useState(0)
+  const [temporaryPetState, setTemporaryPetState] = useState<PetHealthState | null>(null)
 
 
 
@@ -56,8 +58,20 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
 
   const handleAnalysisComplete = async (result: AnalysisResult) => {
     setAnalysisResult(result)
+    
+    // Calculate the health state for this specific score
+    const scoreHealthState = calculateHealthState(result.score).state
+    
+    // Show temporary state based on the content score
+    setTemporaryPetState(scoreHealthState)
+    
     // Immediately refresh pet data to show updated health
     await refreshPetData()
+    
+    // Reset to normal state after 3 seconds
+    setTimeout(() => {
+      setTemporaryPetState(null)
+    }, 3000)
   }
 
   const handleCloseScoreDisplay = () => {
@@ -142,9 +156,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
       <div className="relative w-[440px] h-[956px] bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]" style={{ clipPath: 'inset(0)' }}>
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
-        {/* Cloud 3 - Small, floating upper left of satellite */}
-        <div className="absolute" style={{ left: '30px', top: '80px' }}>
-          <img src="/cloud3.svg" alt="" width={80} height={36} />
+        {/* Cloud 3 - Medium size, floating upper left */}
+        <div className="absolute" style={{ left: '20px', top: '50px' }}>
+          <img src="/cloud3.svg" alt="" width={150} height={67} />
         </div>
 
         {/* Satellite - X=116, Y=145 */}
@@ -152,9 +166,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
         </div>
 
-        {/* Cloud 2 - Small, floating lower right of satellite */}
-        <div className="absolute" style={{ left: '240px', top: '200px' }}>
-          <img src="/cloud2.svg" alt="" width={100} height={41} />
+        {/* Cloud 2 - Larger, floating lower right */}
+        <div className="absolute" style={{ left: '250px', top: '240px' }}>
+          <img src="/cloud2.svg" alt="" width={180} height={73} />
         </div>
 
         {/* Cloud 1 - Peek from right edge */}
@@ -168,7 +182,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         </div>
 
         {/* Field - Bottom landscape, completely flush with bottom border */}
-        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
+        <div className="absolute" style={{ left: '0px', bottom: '-5px', width: '440px', height: '170px', overflow: 'hidden' }}>
           <img src="/field.svg" alt="" width={610} height={163} style={{ display: 'block', objectFit: 'cover', width: '100%', height: '100%', objectPosition: 'center', margin: '0', padding: '0' }} />
         </div>
 
@@ -239,7 +253,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
               boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
             }}
           >
-            <PetComponent pet={pet} />
+            <PetComponent pet={pet} temporaryState={temporaryPetState} />
           </div>
         )}
 
