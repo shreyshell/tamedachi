@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import LogoutButton from './LogoutButton'
 
 interface URLInputModalProps {
   isOpen: boolean
@@ -14,15 +13,6 @@ interface URLInputModalProps {
   petId: string | null
 }
 
-/**
- * URLInputModal component for submitting URLs for content analysis
- * 
- * Requirements:
- * - 2.1: Display input field for URL entry when middle navigation button is clicked
- * - 2.2: Send valid URLs to Content Analysis service
- * - 2.4: Clear input field on successful submission
- * - 2.5: Display error messages for invalid URLs
- */
 export default function URLInputModal({
   isOpen,
   onClose,
@@ -41,7 +31,6 @@ export default function URLInputModal({
     setIsLoading(true)
 
     try {
-      // Validate URL on submit (Requirement 2.2, 2.5)
       const trimmedUrl = url.trim()
       if (!trimmedUrl) {
         setError('Please enter a URL')
@@ -49,7 +38,6 @@ export default function URLInputModal({
         return
       }
 
-      // Call /api/analyze-content (Requirement 2.2)
       const response = await fetch('/api/analyze-content', {
         method: 'POST',
         headers: {
@@ -58,11 +46,9 @@ export default function URLInputModal({
         body: JSON.stringify({ url: trimmedUrl }),
       })
 
-      // Handle network errors
       if (!response.ok) {
         const data = await response.json().catch(() => ({ error: 'Unknown error occurred' }))
         
-        // Handle specific error types (Requirement 7.5)
         if (response.status === 429) {
           setError('Too many requests. Please wait a moment and try again.')
         } else if (response.status === 504) {
@@ -80,7 +66,6 @@ export default function URLInputModal({
 
       const data = await response.json()
 
-      // Create submission to persist the analysis
       if (petId) {
         const submissionResponse = await fetch('/api/submissions/create', {
           method: 'POST',
@@ -96,7 +81,6 @@ export default function URLInputModal({
         if (!submissionResponse.ok) {
           const submissionError = await submissionResponse.json().catch(() => ({ error: 'Unknown error' }))
           
-          // Handle submission errors (Requirement 7.5)
           if (submissionResponse.status === 401) {
             setError('Your session has expired. Please log in again.')
             setIsLoading(false)
@@ -104,30 +88,19 @@ export default function URLInputModal({
           }
           
           console.error('Failed to create submission:', submissionError)
-          // Continue to show results even if submission fails
           setError('Analysis complete, but failed to save. Your pet may not update.')
         }
       }
 
-      // Show results in ScoreDisplay (Requirement 2.2)
       onAnalysisComplete({
         score: data.credibilityScore,
         qualityMessage: data.qualityMessage,
         analysis: data.analysis,
       })
 
-      // Clear input field on success (Requirement 2.4)
       setUrl('')
-      setIsLoading(false)
-      
-      // Close modal after successful submission (only if no error)
-      if (!error) {
-        onClose()
-      }
+      onClose()
     } catch (err) {
-      console.error('Error analyzing content:', err)
-      
-      // Handle different types of network errors (Requirement 7.5)
       if (err instanceof TypeError && err.message.includes('fetch')) {
         setError('No internet connection. Please check your network.')
       } else {
@@ -135,11 +108,6 @@ export default function URLInputModal({
       }
       setIsLoading(false)
     }
-  }
-
-  const handleExampleClick = (exampleUrl: string) => {
-    setUrl(exampleUrl)
-    setError(null)
   }
 
   const handleClose = () => {
@@ -151,152 +119,190 @@ export default function URLInputModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-black">
-      {/* Fixed iPhone 16 Pro Max container (440x956) */}
-      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
-        {/* Logout Button */}
-        <LogoutButton />
-
-        {/* Background Decorative Vectors - Exact Figma Positions */}
-        <div className="absolute" style={{ left: '255px', top: '106px' }}>
-          <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
-        </div>
-        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
-        </div>
-        <div className="absolute" style={{ left: '-293px', top: '23px' }}>
-          <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
-        </div>
-        <div className="absolute" style={{ left: '116px', top: '145px' }}>
-          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
-        </div>
-        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/nature.svg" alt="" width={610} height={163} />
-        </div>
-
-        {/* Modal Content */}
-        <div className="relative z-10 flex items-center justify-center h-full px-6 py-8">
-        <div
-          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
+    <div className="absolute inset-0 z-50">
+      {/* Modal Container - X=37, Y=269, W=366, H=508 */}
+      <div 
+        className="absolute rounded-[32px]"
+        style={{
+          left: '37px',
+          top: '269px',
+          width: '366px',
+          height: '508px',
+          background: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '2px solid rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+        }}
+      >
+        {/* Header - X=24, Y=24 */}
+        <div 
+          className="absolute"
           style={{
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '2px solid rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+            left: '24px',
+            top: '24px',
+            width: '318px'
           }}
-          onClick={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
         >
-        {/* Close button */}
-        <button
-          onClick={handleClose}
-          onTouchEnd={handleClose}
-          disabled={isLoading}
-          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors disabled:opacity-50 touch-manipulation"
-          aria-label="Close"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-
-        {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Check Content
-          </h2>
-          <p className="text-base text-white/90">
-            Submit a URL to check its credibility
-          </p>
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 
+                className="font-normal"
+                style={{
+                  fontSize: '24px',
+                  lineHeight: '24px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#000000'
+                }}
+              >
+                Check Media Content
+              </h2>
+              <p 
+                className="font-normal mt-1"
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '20px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#6B7280'
+                }}
+              >
+                Enter a URL to analyze its credibility
+              </p>
+            </div>
+            
+            {/* Close button */}
+            <button
+              onClick={handleClose}
+              disabled={isLoading}
+              className="flex items-center justify-center transition-opacity disabled:opacity-50 hover:opacity-70"
+              style={{
+                width: '36px',
+                height: '36px'
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M6 6l8 8M14 6l-8 8" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* URL Input Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="url-input"
-              className="block text-sm font-semibold text-white mb-2"
-            >
-              Enter URL
-            </label>
-            <input
-              id="url-input"
-              type="text"
-              value={url}
-              onChange={(e) => {
-                setUrl(e.target.value)
-                setError(null)
-              }}
-              placeholder="https://example.com/article"
-              disabled={isLoading}
-              className="w-full px-4 py-3 text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{
-                background: 'rgba(255, 255, 255, 0.9)',
-                border: '2px solid rgba(255, 255, 255, 0.5)'
-              }}
-              autoComplete="off"
-            />
-            {error && (
-              <p className="mt-2 text-sm text-red-200 font-medium animate-fade-in bg-red-500/30 px-3 py-2 rounded-lg">
-                ⚠️ {error}
-              </p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading || !url.trim()}
-            className="w-full py-3 px-4 text-base font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl touch-manipulation hover:scale-105 active:scale-95"
+        {/* URL Input Container - X=24, Y=96 */}
+        <form onSubmit={handleSubmit}>
+          <div 
+            className="absolute"
             style={{
-              background: isLoading || !url.trim() 
-                ? 'rgba(200, 200, 200, 0.5)' 
-                : 'linear-gradient(to right, #FFF085, #FFDF20, #FDC700)',
-              color: '#000'
+              left: '24px',
+              top: '96px',
+              width: '318px'
             }}
           >
-            {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg
-                  className="animate-spin h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-                Analyzing...
-              </span>
-            ) : (
-              'Analyze Content'
+            {/* URL Input Box */}
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com/article"
+              disabled={isLoading}
+              className="w-full rounded-lg font-normal focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50"
+              style={{
+                height: '52px',
+                padding: '16px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                fontSize: '16px',
+                lineHeight: '19px',
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#000000'
+              }}
+            />
+
+            {/* Error Message */}
+            {error && (
+              <div 
+                className="mt-3 rounded-lg font-normal"
+                style={{
+                  padding: '12px',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  fontSize: '14px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#DC2626'
+                }}
+              >
+                {error}
+              </div>
             )}
-          </button>
+
+            {/* Analyze Button */}
+            <button
+              type="submit"
+              disabled={isLoading || !url.trim()}
+              className="w-full mt-4 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-2xl flex items-center justify-center gap-2"
+              style={{
+                height: '56px',
+                background: isLoading || !url.trim() 
+                  ? 'rgba(200, 200, 200, 0.5)' 
+                  : 'linear-gradient(135deg, #FFF085 0%, #FFDF20 50%, #FDC700 100%)',
+                fontSize: '16px',
+                lineHeight: '24px',
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#000000',
+                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Analyzing...
+                </>
+              ) : (
+                'Analyze Content'
+              )}
+            </button>
+
+            {/* Examples */}
+            <div className="mt-6">
+              <p 
+                className="font-normal mb-2"
+                style={{
+                  fontSize: '16px',
+                  lineHeight: '20px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#6B7280'
+                }}
+              >
+                Try these examples:
+              </p>
+              <div className="space-y-2">
+                {['https://www.bbc.com/news', 'https://www.reuters.com/world', 'https://www.npr.org/sections/news'].map((exampleUrl) => (
+                  <button
+                    key={exampleUrl}
+                    type="button"
+                    onClick={() => setUrl(exampleUrl)}
+                    disabled={isLoading}
+                    className="w-full text-left rounded-lg font-normal transition-colors hover:bg-white/50 disabled:opacity-50"
+                    style={{
+                      height: '36px',
+                      padding: '8px 12px',
+                      background: 'rgba(255, 255, 255, 0.5)',
+                      border: '1px solid rgba(0, 0, 0, 0.05)',
+                      fontSize: '14px',
+                      lineHeight: '20px',
+                      fontFamily: 'Fredoka, sans-serif',
+                      color: '#4B5563'
+                    }}
+                  >
+                    {exampleUrl}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </form>
-        </div>
-      </div>
       </div>
     </div>
   )

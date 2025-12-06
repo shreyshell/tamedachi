@@ -2,7 +2,6 @@
 
 import { Pet } from '@/lib/types'
 import { calculateAge } from '@/lib/utils/petHelpers'
-import LogoutButton from './LogoutButton'
 
 interface GrowthTimelineModalProps {
   isOpen: boolean
@@ -15,14 +14,15 @@ interface GrowthStage {
   emoji: string
   minCount: number
   maxCount: number
+  index: number
 }
 
 const GROWTH_STAGES: GrowthStage[] = [
-  { name: 'Baby', emoji: '🍼', minCount: 0, maxCount: 99 },
-  { name: 'Child', emoji: '🧒', minCount: 100, maxCount: 199 },
-  { name: 'Teen', emoji: '🧑', minCount: 200, maxCount: 299 },
-  { name: 'Adult', emoji: '🧑‍💼', minCount: 300, maxCount: 399 },
-  { name: 'Elder', emoji: '🧓', minCount: 400, maxCount: Infinity },
+  { name: 'Baby', emoji: '🍼', minCount: 0, maxCount: 99, index: 0 },
+  { name: 'Child', emoji: '🧒', minCount: 100, maxCount: 199, index: 1 },
+  { name: 'Teen', emoji: '🧑', minCount: 200, maxCount: 299, index: 2 },
+  { name: 'Adult', emoji: '🧑‍💼', minCount: 300, maxCount: 399, index: 3 },
+  { name: 'Elder', emoji: '🧓', minCount: 400, maxCount: Infinity, index: 4 },
 ]
 
 /**
@@ -40,14 +40,11 @@ export default function GrowthTimelineModal({
 }: GrowthTimelineModalProps) {
   if (!isOpen) return null
 
-  const handleClose = () => {
-    onClose()
-  }
-
   // Calculate current growth data
   const goodContentCount = pet?.goodContentCount || 0
   const ageYears = pet ? calculateAge(goodContentCount) : 0
   const progressToNextYear = goodContentCount % 100
+  const remainingToNextYear = 100 - progressToNextYear
 
   // Determine current growth stage
   const getCurrentStage = (): GrowthStage => {
@@ -62,165 +59,297 @@ export default function GrowthTimelineModal({
   const currentStage = getCurrentStage()
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-black">
-      {/* Fixed iPhone 16 Pro Max container (440x956) */}
-      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
-        {/* Logout Button */}
-        <LogoutButton />
-
-        {/* Background Decorative Vectors - Exact Figma Positions */}
-        <div className="absolute" style={{ left: '255px', top: '106px' }}>
-          <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
-        </div>
-        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
-        </div>
-        <div className="absolute" style={{ left: '-293px', top: '23px' }}>
-          <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
-        </div>
-        <div className="absolute" style={{ left: '116px', top: '145px' }}>
-          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
-        </div>
-        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/nature.svg" alt="" width={610} height={163} />
-        </div>
-
-        {/* Modal Content */}
-        <div className="relative z-10 flex items-center justify-center h-full px-6 py-8">
-        <div
-          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
-          style={{
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '2px solid rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
-          }}
-          onClick={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
-        >
-        {/* Close button */}
-        <button
-          onClick={handleClose}
-          onTouchEnd={handleClose}
-          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors touch-manipulation"
-          aria-label="Close"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+    <div 
+      className="fixed inset-0 z-50 flex justify-center items-center"
+      style={{ background: 'rgba(0, 0, 0, 0.5)' }}
+      onClick={onClose}
+    >
+      {/* Growth & Age Container - Overlay at X=24, Y=38, W=392, H=880 */}
+      <div
+        className="absolute rounded-[24px] overflow-y-auto"
+        style={{
+          left: '24px',
+          top: '38px',
+          width: '392px',
+          height: '880px',
+          background: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '2px solid rgba(255, 255, 255, 0.5)',
+          boxShadow: '0px 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          padding: '24px'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Growth Header - X=24, Y=24 (relative to container) */}
+        <div className="flex items-center justify-between mb-6" style={{ height: '36px' }}>
+          {/* Headline Container with Icon */}
+          <div className="flex items-center gap-2">
+            <img src="/icon-growth.svg" alt="" width={26} height={26} />
+            <h2 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '16px',
+                lineHeight: '24px',
+                color: '#0a0a0a',
+                fontWeight: 400
+              }}
+            >
+              Growth & Age
+            </h2>
+          </div>
+          
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+            style={{ width: '36px', height: '36px' }}
+            aria-label="Close"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-
-        {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Check Growth Stage
-          </h2>
-          <p className="text-base text-white/90">
-            See how your Tamedachi is growing
-          </p>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M15 5L5 15M5 5L15 15" stroke="#0a0a0a" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
 
-        {!pet && (
-          <div className="text-center py-8">
-            <p className="text-gray-600">
-              No pet data available. Please hatch your egg first!
+        {/* Growth Panel Container */}
+        <div className="flex flex-col gap-6">
+          {/* Current Growth Stage Container */}
+          <div 
+            className="rounded-[24px] flex flex-col items-center gap-3 py-6 px-6"
+            style={{
+              background: 'rgba(220, 252, 231, 0.5)',
+              border: '2px solid #05df72'
+            }}
+          >
+            {/* Emoji */}
+            <div 
+              style={{
+                fontSize: '60px',
+                lineHeight: '60px',
+                fontFamily: 'Fredoka, sans-serif',
+                textAlign: 'center'
+              }}
+            >
+              {currentStage.emoji}
+            </div>
+            
+            {/* Current Stage Text */}
+            <p 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#4a5565',
+                textAlign: 'center'
+              }}
+            >
+              Current Stage
+            </p>
+            
+            {/* Stage Name */}
+            <p 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '24px',
+                lineHeight: '32px',
+                color: '#00a63e',
+                textAlign: 'center',
+                fontWeight: 400
+              }}
+            >
+              {currentStage.name}
             </p>
           </div>
-        )}
 
-        {pet && (
-          <div className="space-y-6">
-            {/* Current Stage Display */}
-            <div className="text-center">
-              <div className="text-7xl mb-4">{currentStage.emoji}</div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                {currentStage.name}
-              </h3>
-              <p className="text-lg text-white/90 mb-4">
-                Age: {ageYears} {ageYears === 1 ? 'year' : 'years'} old
-              </p>
-              
-              {/* Progress Bar */}
-              <div className="mb-2">
-                <div className="flex justify-between text-sm text-white/80 mb-1">
-                  <span>Progress to Next Year</span>
-                  <span>{progressToNextYear}/100</span>
-                </div>
-                <div className="w-full rounded-full h-4 overflow-hidden"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.3)'
-                  }}
-                >
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{ 
-                      width: `${progressToNextYear}%`,
-                      background: 'linear-gradient(to right, #4CAF50, #8BC34A)'
-                    }}
-                  />
-                </div>
-              </div>
+          {/* Age Container */}
+          <div className="flex flex-col gap-2">
+            <p 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#4a5565'
+              }}
+            >
+              Age
+            </p>
+            <div className="flex items-baseline gap-2">
+              <span 
+                style={{
+                  fontFamily: 'Fredoka, sans-serif',
+                  fontSize: '36px',
+                  lineHeight: '40px',
+                  color: '#0a0a0a',
+                  fontWeight: 400
+                }}
+              >
+                {ageYears}
+              </span>
+              <span 
+                style={{
+                  fontFamily: 'Fredoka, sans-serif',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  color: '#4a5565'
+                }}
+              >
+                years old
+              </span>
             </div>
+          </div>
 
-            {/* Growth Stages */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-white/90 mb-2">
-                Growth Stages
-              </h4>
+          {/* Progress Container */}
+          <div className="flex flex-col gap-2">
+            {/* Text Container */}
+            <div className="flex items-center justify-between">
+              <p 
+                style={{
+                  fontFamily: 'Fredoka, sans-serif',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  color: '#4a5565'
+                }}
+              >
+                Progress to Next Year
+              </p>
+              <p 
+                style={{
+                  fontFamily: 'Fredoka, sans-serif',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  color: '#0a0a0a'
+                }}
+              >
+                {progressToNextYear}/100
+              </p>
+            </div>
+            
+            {/* Progress Bar */}
+            <div 
+              className="rounded-full overflow-hidden"
+              style={{
+                height: '16px',
+                background: '#e5e7eb'
+              }}
+            >
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${progressToNextYear}%`,
+                  background: 'linear-gradient(to right, #05df72, #00a63e)'
+                }}
+              />
+            </div>
+            
+            {/* Number left Text */}
+            <p 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#6a7282'
+              }}
+            >
+              {remainingToNextYear} more credible content pieces to grow
+            </p>
+          </div>
+
+          {/* Growth Timeline Container */}
+          <div className="flex flex-col gap-3">
+            <p 
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#4a5565'
+              }}
+            >
+              Growth Timeline
+            </p>
+            
+            {/* Growth Stage Timelines */}
+            <div className="flex flex-col gap-2">
               {GROWTH_STAGES.map((stage) => {
                 const isCurrentStage = stage.name === currentStage.name
-                const isPastStage = goodContentCount > stage.maxCount
                 
                 return (
                   <div
                     key={stage.name}
-                    className={`flex items-center gap-3 p-3 rounded-lg transition-all`}
+                    className="rounded-[14px] flex items-center gap-3 px-3 py-2"
                     style={{
-                      background: isCurrentStage 
-                        ? 'rgba(76, 175, 80, 0.3)' 
-                        : isPastStage
-                        ? 'rgba(255, 255, 255, 0.15)'
-                        : 'rgba(255, 255, 255, 0.1)',
-                      border: `2px solid ${isCurrentStage ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 255, 255, 0.2)'}`
+                      height: isCurrentStage ? '68px' : '64px',
+                      background: isCurrentStage ? '#dcfce7' : '#f9fafb',
+                      border: isCurrentStage ? '2px solid #05df72' : 'none',
+                      paddingLeft: isCurrentStage ? '14px' : '12px',
+                      paddingRight: isCurrentStage ? '14px' : '12px'
                     }}
                   >
-                    <div className="text-3xl">{stage.emoji}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-base font-semibold text-white">
-                          {stage.name}
-                        </span>
-                        {isCurrentStage && (
-                          <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
-                            Current
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-xs text-white/70 mt-1">
+                    {/* Number Circle */}
+                    <div 
+                      className="rounded-full flex items-center justify-center shrink-0"
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        background: isCurrentStage ? '#00c950' : '#d1d5dc'
+                      }}
+                    >
+                      <span 
+                        style={{
+                          fontFamily: 'Fredoka, sans-serif',
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                          color: isCurrentStage ? '#ffffff' : '#4a5565',
+                          fontWeight: 400
+                        }}
+                      >
+                        {stage.index}
+                      </span>
+                    </div>
+                    
+                    {/* Text */}
+                    <div className="flex-1 flex flex-col">
+                      <p 
+                        style={{
+                          fontFamily: 'Fredoka, sans-serif',
+                          fontSize: '16px',
+                          lineHeight: '24px',
+                          color: isCurrentStage ? '#008236' : '#4a5565',
+                          fontWeight: 400
+                        }}
+                      >
+                        {stage.name}
+                      </p>
+                      <p 
+                        style={{
+                          fontFamily: 'Fredoka, sans-serif',
+                          fontSize: '12px',
+                          lineHeight: '16px',
+                          color: '#6a7282'
+                        }}
+                      >
                         {stage.maxCount === Infinity
                           ? `${stage.minCount}+ good content`
                           : `${stage.minCount}-${stage.maxCount} good content`}
-                      </div>
+                      </p>
+                    </div>
+                    
+                    {/* Emoji */}
+                    <div 
+                      style={{
+                        fontSize: '20px',
+                        lineHeight: '28px',
+                        fontFamily: 'Fredoka, sans-serif'
+                      }}
+                    >
+                      {stage.emoji}
                     </div>
                   </div>
                 )
               })}
             </div>
           </div>
-        )}
         </div>
-      </div>
       </div>
     </div>
   )

@@ -5,8 +5,8 @@ import { createClient } from '@/lib/supabase/client'
 import { useState } from 'react'
 
 /**
- * LogoutButton component - positioned in top right corner
- * Matches Figma design with glass effect
+ * LogoutButton component - Matches Figma design
+ * Positioned at X=337, Y=23, W=80, H=36
  */
 export default function LogoutButton() {
   const router = useRouter()
@@ -28,7 +28,7 @@ export default function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={isLoading}
-      className="fixed top-6 right-6 z-20 px-4 py-2 rounded-full transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+      className="w-full h-full rounded-full transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation flex items-center justify-center"
       style={{
         background: 'rgba(255, 255, 255, 0.25)',
         backdropFilter: 'blur(20px)',
@@ -38,7 +38,14 @@ export default function LogoutButton() {
       }}
       aria-label="Logout"
     >
-      <span className="text-sm font-semibold text-white">
+      <span 
+        className="font-normal text-white"
+        style={{
+          fontSize: '14px',
+          lineHeight: '19px',
+          fontFamily: 'Fredoka, sans-serif'
+        }}
+      >
         {isLoading ? 'Logging out...' : 'Logout'}
       </span>
     </button>

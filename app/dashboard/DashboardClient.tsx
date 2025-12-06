@@ -139,29 +139,26 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
     <div className="flex justify-center items-center min-h-screen bg-black">
       {/* Fixed iPhone 16 Pro Max container (440x956) */}
       <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
-        {/* Logout Button */}
-        <LogoutButton />
-
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
-        {/* Cloud 1 - X=255, Y=106 */}
-        <div className="absolute" style={{ left: '255px', top: '106px' }}>
-          <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
-        </div>
-
-        {/* Cloud 2 - X=-283, Y=238 */}
-        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
-        </div>
-
         {/* Cloud 3 - X=-293, Y=23 */}
         <div className="absolute" style={{ left: '-293px', top: '23px' }}>
           <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
         </div>
 
-        {/* Satellite - X=116, Y=145 */}
-        <div className="absolute" style={{ left: '116px', top: '145px' }}>
-          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
+        {/* Cloud 2 - X=393.9375, Y=238 (note: Figma shows this differently) */}
+        <div className="absolute" style={{ left: '393.9375px', top: '238px' }}>
+          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
+        </div>
+
+        {/* Cloud 1 - X=255, Y=106 */}
+        <div className="absolute" style={{ left: '255px', top: '106px' }}>
+          <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
+        </div>
+
+        {/* Satellite - X=130.84, Y=145 */}
+        <div className="absolute" style={{ left: '130.84px', top: '145px' }}>
+          <img src="/satellite.svg" alt="" width={92.8} height={92.8} />
         </div>
 
         {/* Nature - X=-85, Y=793 */}
@@ -169,11 +166,27 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/nature.svg" alt="" width={610} height={163} />
         </div>
 
-        {/* Main content area */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 py-8">
-        {/* Pet Glass Container - Matching Figma Design */}
-        <div className="w-full max-w-[418px] h-[418px] rounded-[32px] flex items-center justify-center mb-8"
+        {/* Logout Button - X=337, Y=23 */}
+        <div 
+          className="absolute cursor-pointer"
           style={{
+            left: '337px',
+            top: '23px',
+            width: '80px',
+            height: '36px'
+          }}
+        >
+          <LogoutButton />
+        </div>
+
+        {/* Pet Glass Container - X=11, Y=269, W=418, H=418 */}
+        <div 
+          className="absolute rounded-[32px] flex items-center justify-center"
+          style={{
+            left: '11px',
+            top: '269px',
+            width: '418px',
+            height: '418px',
             background: 'rgba(255, 255, 255, 0.25)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
@@ -190,7 +203,13 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           {isHatching && !pet && (
             <div className="text-center">
               <div className="text-7xl animate-bounce">🐣</div>
-              <p className="mt-4 text-lg font-semibold text-gray-800">
+              <p 
+                className="mt-4 text-lg font-semibold"
+                style={{
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#1F2937'
+                }}
+              >
                 Creating your Tamedachi...
               </p>
             </div>
@@ -203,28 +222,119 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
 
         {/* Text below egg */}
         {!pet && !isHatching && (
-          <div className="text-center max-w-sm">
-            <p className="text-xl font-semibold text-gray-800">
+          <div 
+            className="absolute text-center"
+            style={{
+              left: '50%',
+              top: '737px',
+              transform: 'translateX(-50%)',
+              width: '303px'
+            }}
+          >
+            <p 
+              className="font-normal"
+              style={{
+                fontSize: '24px',
+                lineHeight: '24px',
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#000000'
+              }}
+            >
               Tap the egg to hatch your Tamedachi!
             </p>
             {error && (
-              <p className="mt-2 text-sm text-red-600">
+              <p 
+                className="mt-2"
+                style={{
+                  fontSize: '14px',
+                  fontFamily: 'Fredoka, sans-serif',
+                  color: '#DC2626'
+                }}
+              >
                 {error}
               </p>
             )}
           </div>
         )}
 
-        {/* Navigation buttons */}
+        {/* Navigation Buttons - Exact Figma Positions */}
         {showNavigation && (
-          <div className="mt-8">
-            <NavigationButtons
-              onHealthClick={handleOpenHealthModal}
-              onURLClick={handleOpenURLModal}
-              onGrowthClick={handleOpenGrowthModal}
-              activeButton={activeButton}
-            />
-          </div>
+          <>
+            {/* Health Button - X=38, Y=827 */}
+            <button
+              onClick={handleOpenHealthModal}
+              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              style={{
+                left: '38px',
+                top: '827px',
+                width: '90px',
+                height: '90px',
+                background: activeButton === 'health' 
+                  ? 'rgba(255, 255, 255, 0.9)' 
+                  : 'rgba(255, 255, 255, 0.25)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: activeButton === 'health'
+                  ? '3px solid rgba(135, 206, 235, 1)'
+                  : '2px solid rgba(255, 255, 255, 0.4)',
+                boxShadow: activeButton === 'health'
+                  ? '0 8px 32px 0 rgba(135, 206, 235, 0.6)'
+                  : '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+              }}
+            >
+              <img src="/icon-health.svg" alt="Health" width={50} height={45} />
+            </button>
+
+            {/* URL Button - X=175, Y=827 */}
+            <button
+              onClick={handleOpenURLModal}
+              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              style={{
+                left: '175px',
+                top: '827px',
+                width: '90px',
+                height: '90px',
+                background: activeButton === 'url' 
+                  ? 'rgba(255, 255, 255, 0.9)' 
+                  : 'rgba(255, 255, 255, 0.25)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: activeButton === 'url'
+                  ? '3px solid rgba(135, 206, 235, 1)'
+                  : '2px solid rgba(255, 255, 255, 0.4)',
+                boxShadow: activeButton === 'url'
+                  ? '0 8px 32px 0 rgba(135, 206, 235, 0.6)'
+                  : '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+              }}
+            >
+              <img src="/icon-url.svg" alt="URL" width={50} height={52} />
+            </button>
+
+            {/* Growth Button - X=312, Y=827 */}
+            <button
+              onClick={handleOpenGrowthModal}
+              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              style={{
+                left: '312px',
+                top: '827px',
+                width: '90px',
+                height: '90px',
+                background: activeButton === 'growth' 
+                  ? 'rgba(255, 255, 255, 0.9)' 
+                  : 'rgba(255, 255, 255, 0.25)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: activeButton === 'growth'
+                  ? '3px solid rgba(135, 206, 235, 1)'
+                  : '2px solid rgba(255, 255, 255, 0.4)',
+                boxShadow: activeButton === 'growth'
+                  ? '0 8px 32px 0 rgba(135, 206, 235, 0.6)'
+                  : '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+              }}
+            >
+              <img src="/icon-growth.svg" alt="Growth" width={50} height={50} />
+            </button>
+          </>
         )}
       </div>
 
@@ -259,7 +369,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           onClose={handleCloseScoreDisplay}
         />
       )}
-      </div>
+    </div>
     </div>
   )
 }
