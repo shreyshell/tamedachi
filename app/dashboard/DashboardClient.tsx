@@ -144,72 +144,68 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-sky-gradient overflow-hidden">
-      {/* Decorative clouds - positioned to match Figma */}
-      <div className="absolute top-[23px] left-[-293px] text-4xl cloud-decoration animate-pulse opacity-70">☁️</div>
-      <div className="absolute top-[106px] left-[255px] text-5xl cloud-decoration animate-pulse opacity-80" style={{ animationDelay: '2s' }}>☁️</div>
-      <div className="absolute top-[238px] right-[-283px] text-6xl cloud-decoration animate-pulse opacity-70" style={{ animationDelay: '1s' }}>☁️</div>
+    <div className="relative min-h-screen w-full bg-sky-gradient overflow-hidden flex flex-col">
+      {/* Decorative clouds */}
+      <div className="absolute top-6 -left-20 text-4xl cloud-decoration animate-pulse opacity-70">☁️</div>
+      <div className="absolute top-24 left-1/2 text-5xl cloud-decoration animate-pulse opacity-80" style={{ animationDelay: '2s' }}>☁️</div>
+      <div className="absolute top-48 -right-20 text-6xl cloud-decoration animate-pulse opacity-70" style={{ animationDelay: '1s' }}>☁️</div>
       
       {/* Satellite decoration */}
-      <div className="absolute top-[145px] left-[131px] text-3xl opacity-60 animate-pulse" style={{ animationDelay: '1.5s' }}>🛰️</div>
+      <div className="absolute top-32 left-32 text-3xl opacity-60 animate-pulse" style={{ animationDelay: '1.5s' }}>🛰️</div>
 
-      {/* Main content - centered vertically */}
-      <div className="flex flex-1 items-center justify-center px-4">
-        <div className="w-full max-w-[440px] relative">
-          {/* Pet Glass Container */}
-          <div className="absolute top-[269px] left-[11px] w-[418px] h-[418px] rounded-3xl glass-container shadow-2xl flex items-center justify-center">
-            {pet && (
-              <div className="w-full h-full flex items-center justify-center">
-                <PetComponent pet={pet} />
-              </div>
-            )}
-          </div>
-
-          {/* Egg display (outside glass container) */}
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        {/* Glass container with pet or egg */}
+        <div className="w-full max-w-[418px] h-[418px] rounded-3xl glass-container shadow-2xl flex items-center justify-center mb-8">
           {!pet && !isHatching && (
-            <>
-              <div className="absolute top-[279px] left-[70px]">
-                <Egg onHatch={handleHatch} />
-              </div>
-              <div className="absolute top-[737px] left-[69px] w-[303px] text-center">
-                <p className="text-2xl font-semibold text-gray-800">
-                  Tap the egg to hatch your Tamedachi!
-                </p>
-              </div>
-              {error && (
-                <p className="absolute top-[800px] left-0 right-0 text-center text-sm text-red-600">
-                  {error}
-                </p>
-              )}
-            </>
+            <div className="flex flex-col items-center">
+              <Egg onHatch={handleHatch} />
+            </div>
           )}
 
-          {/* Hatching state */}
           {isHatching && !pet && (
-            <div className="absolute top-[350px] left-0 right-0 text-center">
+            <div className="text-center">
               <div className="text-7xl animate-bounce">🐣</div>
-              <p className="mt-4 text-lg font-semibold text-sky-600">
+              <p className="mt-4 text-lg font-semibold text-gray-800">
                 Creating your Tamedachi...
               </p>
             </div>
           )}
 
-          {/* Navigation buttons - positioned at bottom */}
-          {showNavigation && (
-            <div className="absolute bottom-[39px] left-0 right-0">
-              <NavigationButtons
-                onHealthClick={handleOpenHealthModal}
-                onURLClick={handleOpenURLModal}
-                onGrowthClick={handleOpenGrowthModal}
-                activeButton={activeButton}
-              />
-            </div>
+          {pet && (
+            <PetComponent pet={pet} />
           )}
         </div>
+
+        {/* Text below egg */}
+        {!pet && !isHatching && (
+          <div className="text-center max-w-sm">
+            <p className="text-xl font-semibold text-gray-800">
+              Tap the egg to hatch your Tamedachi!
+            </p>
+            {error && (
+              <p className="mt-2 text-sm text-red-600">
+                {error}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Navigation buttons */}
+        {showNavigation && (
+          <div className="mt-8">
+            <NavigationButtons
+              onHealthClick={handleOpenHealthModal}
+              onURLClick={handleOpenURLModal}
+              onGrowthClick={handleOpenGrowthModal}
+              activeButton={activeButton}
+            />
+          </div>
+        )}
       </div>
 
       {/* Nature elements at bottom */}
-      <div className="absolute bottom-0 left-[-85px] right-0 flex justify-around text-5xl nature-decoration opacity-60">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-around pb-2 text-4xl nature-decoration opacity-60">
         <span>🌳</span>
         <span>🌲</span>
         <span>🌿</span>

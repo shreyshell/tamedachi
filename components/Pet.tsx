@@ -82,20 +82,13 @@ export default function Pet({ pet }: PetProps) {
 
   return (
     <div className="flex items-center justify-center">
-      {/* Pet visual - large emoji matching Figma */}
+      {/* Pet visual */}
       <div
         className={`
-          text-[287px] leading-none transition-all duration-500
+          text-9xl transition-all duration-500
           ${visual.animation}
           ${isTransitioning ? 'scale-0 rotate-180' : 'scale-100 rotate-0'}
         `}
-        style={{
-          width: '305px',
-          height: '287px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
       >
         {visual.emoji}
       </div>

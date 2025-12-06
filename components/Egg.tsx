@@ -60,26 +60,22 @@ export default function Egg({ onHatch }: EggProps) {
         ${tapCount >= 3 ? 'cursor-default' : 'hover:scale-105 active:scale-95'}
       `}
       aria-label="Tap the egg to hatch your pet"
-      style={{
-        width: '300px',
-        height: '399px'
-      }}
     >
-      {/* Egg SVG - matching Figma dimensions */}
+      {/* Egg SVG */}
       <svg
-        width="300"
-        height="399"
-        viewBox="0 0 300 399"
+        width="200"
+        height="240"
+        viewBox="0 0 200 240"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="drop-shadow-2xl"
       >
         {/* Main egg shape */}
         <ellipse
-          cx="150"
-          cy="230"
-          rx="120"
-          ry="150"
+          cx="100"
+          cy="140"
+          rx="80"
+          ry="100"
           fill="url(#eggGradient)"
           stroke="#E0E7FF"
           strokeWidth="4"
@@ -89,14 +85,14 @@ export default function Egg({ onHatch }: EggProps) {
         {isCracking && (
           <>
             <path
-              d="M 150 80 L 142 140 L 158 170 L 150 230"
+              d="M 100 40 L 95 80 L 105 100 L 100 140"
               stroke="#8B7355"
               strokeWidth="3"
               strokeLinecap="round"
               className="animate-fade-in"
             />
             <path
-              d="M 90 200 L 120 215 L 105 245"
+              d="M 60 120 L 80 130 L 70 150"
               stroke="#8B7355"
               strokeWidth="2"
               strokeLinecap="round"
@@ -104,7 +100,7 @@ export default function Egg({ onHatch }: EggProps) {
               style={{ animationDelay: '0.1s' }}
             />
             <path
-              d="M 210 200 L 180 215 L 195 245"
+              d="M 140 120 L 120 130 L 130 150"
               stroke="#8B7355"
               strokeWidth="2"
               strokeLinecap="round"
@@ -116,10 +112,10 @@ export default function Egg({ onHatch }: EggProps) {
         
         {/* Shine effect */}
         <ellipse
-          cx="112"
-          cy="170"
-          rx="30"
-          ry="45"
+          cx="75"
+          cy="100"
+          rx="20"
+          ry="30"
           fill="white"
           opacity="0.4"
         />
