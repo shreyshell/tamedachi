@@ -90,10 +90,10 @@ See `.env.setup.md` for detailed setup instructions.
 ## 🎨 Design System
 
 Tamedachi features a whimsical sky theme with:
-- Sky blue backgrounds with clouds
+- Gradient backgrounds with clouds
 - Nature elements (green accents)
 - Satellite and decorative elements
-- Mobile-first responsive design (440px base)
+- Mobile-first design (440px base)
 - Touch-optimized interactions
 
 ## 🐣 Features
@@ -105,9 +105,6 @@ Tamedachi features a whimsical sky theme with:
 - **Health Dashboard**: Track your media consumption patterns
 - **Growth Timeline**: See your pet's development over time
 
-## 📝 License
-
-Private project - All rights reserved
 
 ## 🤝 Contributing
 
