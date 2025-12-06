@@ -136,11 +136,11 @@ export default function URLInputModal({
           top: '269px',
           width: '366px',
           height: '508px',
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '2px solid rgba(255, 255, 255, 0.5)',
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+          background: 'rgba(255, 255, 255, 0.7)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.1)'
         }}
       >
         {/* Header - X=24, Y=24 */}
@@ -160,6 +160,7 @@ export default function URLInputModal({
                   fontSize: '24px',
                   lineHeight: '24px',
                   fontFamily: 'Fredoka, sans-serif',
+                  fontWeight: 400,
                   color: '#000000'
                 }}
               >

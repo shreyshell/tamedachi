@@ -76,11 +76,11 @@ export default function GrowthTimelineModal({
           top: '38px',
           width: '392px',
           height: '880px',
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '2px solid rgba(255, 255, 255, 0.5)',
-          boxShadow: '0px 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          background: 'rgba(255, 255, 255, 0.7)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.1)',
           padding: '24px'
         }}
       >
