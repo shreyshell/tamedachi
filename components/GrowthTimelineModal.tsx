@@ -59,14 +59,17 @@ export default function GrowthTimelineModal({
   const currentStage = getCurrentStage()
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex justify-center items-center"
-      style={{ background: 'rgba(0, 0, 0, 0.3)' }}
-      onClick={onClose}
-    >
+    <>
+      {/* Overlay */}
+      <div 
+        className="absolute inset-0 z-50"
+        style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+        onClick={onClose}
+      />
+      
       {/* Growth & Age Container - Overlay at X=24, Y=38, W=392, H=880 */}
       <div
-        className="absolute rounded-[24px] overflow-y-auto"
+        className="absolute rounded-[24px] overflow-y-auto z-50"
         onClick={(e) => e.stopPropagation()}
         style={{
           left: '24px',
@@ -351,6 +354,6 @@ export default function GrowthTimelineModal({
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

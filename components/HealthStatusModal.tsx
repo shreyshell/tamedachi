@@ -109,14 +109,17 @@ export default function HealthStatusModal({ isOpen, onClose, pet }: HealthStatus
   }
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ background: 'rgba(0, 0, 0, 0.3)' }}
-      onClick={handleClose}
-    >
+    <>
+      {/* Overlay */}
+      <div 
+        className="absolute inset-0 z-50"
+        style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+        onClick={handleClose}
+      />
+      
       {/* Modal Container - X=27, Y=200, W=387, H=556 */}
       <div 
-        className="absolute rounded-[32px]"
+        className="absolute rounded-[32px] z-50"
         onClick={(e) => e.stopPropagation()}
         style={{
           left: '27px',
@@ -389,6 +392,6 @@ export default function HealthStatusModal({ isOpen, onClose, pet }: HealthStatus
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }

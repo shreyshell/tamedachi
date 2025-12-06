@@ -39,10 +39,10 @@ export default function ScoreDisplay({
 
       {/* Background Decorative Vectors - Same as Dashboard */}
       <div className="absolute" style={{ left: '-293px', top: '23px' }}>
-        <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
+        <img src="/cloud3.svg" alt="" width={265} height={118} />
       </div>
       <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-        <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
+        <img src="/cloud2.svg" alt="" width={400} height={163} />
       </div>
       <div className="absolute" style={{ left: '255px', top: '106px' }}>
         <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
@@ -50,8 +50,11 @@ export default function ScoreDisplay({
       <div className="absolute" style={{ left: '116px', top: '145px' }}>
         <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
       </div>
+      <div className="absolute" style={{ left: '352px', top: '795px' }}>
+        <img src="/station.svg" alt="" width={71} height={89} />
+      </div>
       <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-        <img src="/nature.svg" alt="" width={610} height={163} />
+        <img src="/field.svg" alt="" width={610} height={163} />
       </div>
 
       {/* Modal Content */}

@@ -119,14 +119,17 @@ export default function URLInputModal({
   }
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ background: 'rgba(0, 0, 0, 0.3)' }}
-      onClick={handleClose}
-    >
+    <>
+      {/* Overlay */}
+      <div 
+        className="absolute inset-0 z-50"
+        style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+        onClick={handleClose}
+      />
+      
       {/* Modal Container - X=37, Y=269, W=366, H=508 */}
       <div 
-        className="absolute rounded-[32px]"
+        className="absolute rounded-[32px] z-50"
         onClick={(e) => e.stopPropagation()}
         style={{
           left: '37px',
@@ -309,6 +312,6 @@ export default function URLInputModal({
           </div>
         </form>
       </div>
-    </div>
+    </>
   )
 }

@@ -144,12 +144,12 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         
         {/* Cloud 3 - X=-293, Y=23 */}
         <div className="absolute" style={{ left: '-293px', top: '23px' }}>
-          <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
+          <img src="/cloud3.svg" alt="" width={265} height={118} />
         </div>
 
         {/* Cloud 2 - X=-283, Y=238 */}
         <div className="absolute" style={{ left: '-283px', top: '238px' }}>
-          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
+          <img src="/cloud2.svg" alt="" width={400} height={163} />
         </div>
 
         {/* Cloud 1 - X=255, Y=106 */}
@@ -162,9 +162,14 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
         </div>
 
-        {/* Nature - X=-85, Y=793 */}
+        {/* Station - X=352, Y=795 */}
+        <div className="absolute" style={{ left: '352px', top: '795px' }}>
+          <img src="/station.svg" alt="" width={71} height={89} />
+        </div>
+
+        {/* Field - X=-85, Y=793 */}
         <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/nature.svg" alt="" width={610} height={163} />
+          <img src="/field.svg" alt="" width={610} height={163} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}
@@ -220,12 +225,13 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         {/* Pet Glass Container - X=11, Y=269, W=418, H=418 (only shown when pet exists) */}
         {pet && (
           <div 
-            className="absolute rounded-[32px] flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: '11px',
               top: '269px',
               width: '418px',
               height: '418px',
+              borderRadius: '228px',
               background: 'rgba(255, 255, 255, 0.25)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
@@ -291,18 +297,52 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           </>
         )}
 
+        {/* Modals - Rendered inside dashboard container */}
+        {/* Health Status Modal */}
+        <HealthStatusModal
+          isOpen={showHealthModal}
+          onClose={handleCloseHealthModal}
+          pet={pet}
+        />
+
+        {/* URL Input Modal */}
+        <URLInputModal
+          isOpen={showURLModal}
+          onClose={handleCloseURLModal}
+          onAnalysisComplete={handleAnalysisComplete}
+          petId={pet?.id || null}
+        />
+
+        {/* Growth Timeline Modal */}
+        <GrowthTimelineModal
+          isOpen={showGrowthModal}
+          onClose={handleCloseGrowthModal}
+          pet={pet}
+        />
+
+        {/* Score Display Overlay */}
+        {analysisResult && (
+          <ScoreDisplay
+            score={analysisResult.score}
+            qualityMessage={analysisResult.qualityMessage}
+            analysis={analysisResult.analysis}
+            onClose={handleCloseScoreDisplay}
+          />
+        )}
+
         {/* Navigation Buttons - Exact Figma Positions */}
         {showNavigation && (
           <>
             {/* Health Button - X=38, Y=827 */}
             <button
               onClick={handleOpenHealthModal}
-              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              className="absolute flex items-center justify-center transition-all hover:scale-105 active:scale-95"
               style={{
                 left: '38px',
                 top: '827px',
                 width: '90px',
                 height: '90px',
+                borderRadius: '122px',
                 background: activeButton === 'health' 
                   ? 'rgba(255, 255, 255, 0.9)' 
                   : 'rgba(255, 255, 255, 0.25)',
@@ -322,12 +362,13 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
             {/* URL Button - X=175, Y=827 */}
             <button
               onClick={handleOpenURLModal}
-              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              className="absolute flex items-center justify-center transition-all hover:scale-105 active:scale-95"
               style={{
                 left: '175px',
                 top: '827px',
                 width: '90px',
                 height: '90px',
+                borderRadius: '122px',
                 background: activeButton === 'url' 
                   ? 'rgba(255, 255, 255, 0.9)' 
                   : 'rgba(255, 255, 255, 0.25)',
@@ -347,12 +388,13 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
             {/* Growth Button - X=312, Y=827 */}
             <button
               onClick={handleOpenGrowthModal}
-              className="absolute rounded-[20px] flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              className="absolute flex items-center justify-center transition-all hover:scale-105 active:scale-95"
               style={{
                 left: '312px',
                 top: '827px',
                 width: '90px',
                 height: '90px',
+                borderRadius: '122px',
                 background: activeButton === 'growth' 
                   ? 'rgba(255, 255, 255, 0.9)' 
                   : 'rgba(255, 255, 255, 0.25)',
@@ -371,38 +413,6 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           </>
         )}
       </div>
-
-      {/* Health Status Modal */}
-      <HealthStatusModal
-        isOpen={showHealthModal}
-        onClose={handleCloseHealthModal}
-        pet={pet}
-      />
-
-      {/* URL Input Modal */}
-      <URLInputModal
-        isOpen={showURLModal}
-        onClose={handleCloseURLModal}
-        onAnalysisComplete={handleAnalysisComplete}
-        petId={pet?.id || null}
-      />
-
-      {/* Growth Timeline Modal */}
-      <GrowthTimelineModal
-        isOpen={showGrowthModal}
-        onClose={handleCloseGrowthModal}
-        pet={pet}
-      />
-
-      {/* Score Display Overlay */}
-      {analysisResult && (
-        <ScoreDisplay
-          score={analysisResult.score}
-          qualityMessage={analysisResult.qualityMessage}
-          analysis={analysisResult.analysis}
-          onClose={handleCloseScoreDisplay}
-        />
-      )}
     </div>
   )
 }
