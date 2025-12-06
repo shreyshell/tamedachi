@@ -147,7 +147,7 @@ export default function SignUpPage() {
             
             {/* Tagline */}
             <p 
-              className="absolute text-center text-black font-normal"
+              className="absolute text-center text-black font-normal whitespace-nowrap"
               style={{
                 left: '50%',
                 top: '143.98px',
@@ -166,7 +166,7 @@ export default function SignUpPage() {
           <div 
             className="relative rounded-[24px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]"
             style={{
-              height: '309.31px',
+              height: '389.31px',
               background: 'rgba(255, 255, 255, 0.2)',
               backdropFilter: 'blur(12px)',
               border: '1px solid rgba(255, 255, 255, 0.3)'
@@ -342,14 +342,14 @@ export default function SignUpPage() {
               className="absolute text-center"
               style={{
                 left: '98.64px',
-                top: '255.39px',
+                top: '335.39px',
                 width: '194.90px',
                 height: '20px'
               }}
             >
               <Link
                 href="/login"
-                className="text-white/80 underline hover:text-white transition-colors font-normal"
+                className="text-white/80 underline hover:text-white transition-colors font-normal whitespace-nowrap"
                 style={{
                   fontSize: '14px',
                   lineHeight: '20px',

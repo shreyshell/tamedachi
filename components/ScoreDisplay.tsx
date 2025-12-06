@@ -33,7 +33,7 @@ export default function ScoreDisplay({
   const borderColor = score >= 50 ? 'border-green-200' : 'border-red-200'
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]">
       {/* Logout Button */}
       <LogoutButton />
 

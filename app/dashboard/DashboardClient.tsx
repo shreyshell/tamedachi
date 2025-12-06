@@ -139,7 +139,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   return (
     <div className="flex justify-center items-center min-h-screen bg-black">
       {/* Fixed iPhone 16 Pro Max container (440x956) */}
-      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]">
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
         {/* Cloud 3 - X=-293, Y=23 */}

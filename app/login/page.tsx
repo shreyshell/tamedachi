@@ -138,7 +138,7 @@ export default function LoginPage() {
             
             {/* Tagline */}
             <p 
-              className="absolute text-center text-black font-normal"
+              className="absolute text-center text-black font-normal whitespace-nowrap"
               style={{
                 left: '50%',
                 top: '143.98px',
@@ -297,7 +297,7 @@ export default function LoginPage() {
             >
               <Link
                 href="/signup"
-                className="text-white/80 underline hover:text-white transition-colors font-normal"
+                className="text-white/80 underline hover:text-white transition-colors font-normal whitespace-nowrap"
                 style={{
                   fontSize: '14px',
                   lineHeight: '20px',
