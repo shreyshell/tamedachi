@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface EggProps {
   onHatch: () => void
@@ -8,127 +9,122 @@ interface EggProps {
 
 export default function Egg({ onHatch }: EggProps) {
   const [tapCount, setTapCount] = useState(0)
-  const [isShaking, setIsShaking] = useState(false)
-  const [isCracking, setIsCracking] = useState(false)
-  const [isDisappearing, setIsDisappearing] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [animationPhase, setAnimationPhase] = useState<'idle' | 'tap1' | 'tap2' | 'tap3-down' | 'tap3-left' | 'tap3-right' | 'tap3-left2' | 'tap3-disappear'>('idle')
 
-  const handleTap = () => {
-    if (tapCount >= 3 || isDisappearing) return
+  const handleEggTap = () => {
+    if (isAnimating || tapCount >= 3) return
 
+    setIsAnimating(true)
     const newTapCount = tapCount + 1
     setTapCount(newTapCount)
 
-    // Trigger shake animation
-    setIsShaking(true)
-    setTimeout(() => setIsShaking(false), 500)
-
-    // On third tap, start hatching sequence
-    if (newTapCount === 3) {
+    if (newTapCount === 1) {
+      // Tap 1: Show crack 1
+      setAnimationPhase('tap1')
       setTimeout(() => {
-        setIsCracking(true)
-        
-        // After crack animation, start disappear
+        setIsAnimating(false)
+      }, 300)
+    } else if (newTapCount === 2) {
+      // Tap 2: Show crack 2 and crack 3
+      setAnimationPhase('tap2')
+      setTimeout(() => {
+        setIsAnimating(false)
+      }, 300)
+    } else if (newTapCount === 3) {
+      // Tap 3: Complex animation sequence
+      // 1. Come down
+      setAnimationPhase('tap3-down')
+      setTimeout(() => {
+        // 2. Shake left
+        setAnimationPhase('tap3-left')
         setTimeout(() => {
-          setIsDisappearing(true)
-          
-          // Call onHatch after disappear animation
+          // 3. Shake right
+          setAnimationPhase('tap3-right')
           setTimeout(() => {
-            onHatch()
-          }, 500)
-        }, 800)
-      }, 500)
+            // 4. Shake left again
+            setAnimationPhase('tap3-left2')
+            setTimeout(() => {
+              // 5. Disappear
+              setAnimationPhase('tap3-disappear')
+              setTimeout(() => {
+                // Call onHatch callback
+                onHatch()
+              }, 500)
+            }, 150)
+          }, 150)
+        }, 150)
+      }, 200)
     }
-  }
-
-  // Determine shake direction based on tap count
-  const getShakeClass = () => {
-    if (!isShaking) return ''
-    if (tapCount === 1) return 'animate-shake-left'
-    if (tapCount === 2) return 'animate-shake-right'
-    return ''
   }
 
   return (
     <button
-      onClick={handleTap}
+      onClick={handleEggTap}
       disabled={tapCount >= 3}
       className={`
         relative cursor-pointer transition-all duration-300 touch-manipulation
-        ${getShakeClass()}
-        ${isCracking ? 'animate-crack' : ''}
-        ${isDisappearing ? 'animate-disappear' : ''}
         ${tapCount >= 3 ? 'cursor-default' : 'hover:scale-105 active:scale-95'}
+        ${animationPhase === 'tap3-down' ? 'animate-egg-down' : ''}
+        ${animationPhase === 'tap3-left' ? 'animate-egg-shake-left' : ''}
+        ${animationPhase === 'tap3-right' ? 'animate-egg-shake-right' : ''}
+        ${animationPhase === 'tap3-left2' ? 'animate-egg-shake-left' : ''}
+        ${animationPhase === 'tap3-disappear' ? 'animate-egg-disappear' : ''}
       `}
       aria-label="Tap the egg to hatch your pet"
     >
-      {/* Egg SVG */}
-      <svg
-        width="200"
-        height="240"
-        viewBox="0 0 200 240"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="drop-shadow-2xl"
-      >
-        {/* Main egg shape */}
-        <ellipse
-          cx="100"
-          cy="140"
-          rx="80"
-          ry="100"
-          fill="url(#eggGradient)"
-          stroke="#E0E7FF"
-          strokeWidth="4"
+      <div className="relative w-[300px] h-[399px]">
+        {/* Base Egg */}
+        <Image 
+          src="/egg-base.svg" 
+          alt="Egg" 
+          width={300} 
+          height={399}
+          className="absolute inset-0"
+          priority
         />
-        
-        {/* Crack lines - appear when cracking */}
-        {isCracking && (
-          <>
-            <path
-              d="M 100 40 L 95 80 L 105 100 L 100 140"
-              stroke="#8B7355"
-              strokeWidth="3"
-              strokeLinecap="round"
-              className="animate-fade-in"
-            />
-            <path
-              d="M 60 120 L 80 130 L 70 150"
-              stroke="#8B7355"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="animate-fade-in"
-              style={{ animationDelay: '0.1s' }}
-            />
-            <path
-              d="M 140 120 L 120 130 L 130 150"
-              stroke="#8B7355"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="animate-fade-in"
-              style={{ animationDelay: '0.2s' }}
-            />
-          </>
+
+        {/* Crack 1 - Appears after tap 1 */}
+        {tapCount >= 1 && (
+          <Image 
+            src="/egg-crack1.svg" 
+            alt="" 
+            width={144} 
+            height={169}
+            className={`absolute top-[100px] left-[80px] transition-opacity duration-300 ${
+              animationPhase === 'tap1' ? 'animate-fade-in' : 'opacity-100'
+            }`}
+            priority
+          />
         )}
-        
-        {/* Shine effect */}
-        <ellipse
-          cx="75"
-          cy="100"
-          rx="20"
-          ry="30"
-          fill="white"
-          opacity="0.4"
-        />
-        
-        {/* Gradient definition */}
-        <defs>
-          <linearGradient id="eggGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FEF3C7" />
-            <stop offset="50%" stopColor="#FDE68A" />
-            <stop offset="100%" stopColor="#FCD34D" />
-          </linearGradient>
-        </defs>
-      </svg>
+
+        {/* Crack 2 - Appears after tap 2 */}
+        {tapCount >= 2 && (
+          <Image 
+            src="/egg-crack2.svg" 
+            alt="" 
+            width={109} 
+            height={138}
+            className={`absolute top-[130px] left-[95px] transition-opacity duration-300 ${
+              animationPhase === 'tap2' ? 'animate-fade-in' : 'opacity-100'
+            }`}
+          />
+        )}
+
+        {/* Crack 3 - Appears after tap 2 */}
+        {tapCount >= 2 && (
+          <Image 
+            src="/egg-crack3.svg" 
+            alt="" 
+            width={93} 
+            height={222}
+            className={`absolute top-[90px] left-[105px] transition-opacity duration-300 ${
+              animationPhase === 'tap2' ? 'animate-fade-in' : 'opacity-100'
+            }`}
+            style={{ animationDelay: '0.1s' }}
+          />
+        )}
+      </div>
     </button>
   )
 }

@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import WelcomeClient from './WelcomeClient'
 
 export default async function WelcomePage() {
   const supabase = await createClient()
@@ -15,7 +14,7 @@ export default async function WelcomePage() {
     redirect('/login')
   }
 
-  return <WelcomeClient />
-
+  // If user is authenticated, redirect to dashboard
+  redirect('/dashboard')
 }
 

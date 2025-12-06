@@ -87,7 +87,9 @@ export default function LoginPage() {
 
 
   return (
-    <div className="relative min-h-screen w-full bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2] flex items-center justify-center px-6 py-8">
+    <div className="flex justify-center items-center min-h-screen bg-black">
+      {/* Fixed iPhone 16 Pro Max container (440x956) */}
+      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7] flex items-center justify-center px-6 py-8">
       {/* Main Container */}
       <div className="w-full max-w-[392px] flex flex-col gap-8">
         {/* Headline with Logo */}
@@ -206,6 +208,7 @@ export default function LoginPage() {
         <p className="text-sm text-black text-center">
           Navigate your media consumption with confidence
         </p>
+      </div>
       </div>
     </div>
   )

@@ -33,39 +33,30 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   const [showGrowthModal, setShowGrowthModal] = useState(false)
   const [activeButton, setActiveButton] = useState<'health' | 'url' | 'growth' | null>(null)
 
-  // Poll for pet updates to reflect health changes from submissions
-  useEffect(() => {
+
+
+  // Refresh pet data immediately (called after URL submission)
+  const refreshPetData = async () => {
     if (!pet) return
 
-    const refreshPetData = async () => {
-      try {
-        const response = await fetch('/api/pet/get')
-        
-        if (response.ok) {
-          const data = await response.json()
-          if (data.pet) {
-            setPet(data.pet)
-          }
-        } else if (response.status === 401) {
-          // Session expired - stop polling
-          console.error('Session expired during pet refresh')
-          // Could redirect to login here if needed
+    try {
+      const response = await fetch('/api/pet/get')
+      
+      if (response.ok) {
+        const data = await response.json()
+        if (data.pet) {
+          setPet(data.pet)
         }
-      } catch (err) {
-        // Silently handle refresh errors to avoid disrupting user experience
-        // Network errors during background refresh are not critical
-        console.error('Error refreshing pet data:', err)
       }
+    } catch (err) {
+      console.error('Error refreshing pet data:', err)
     }
+  }
 
-    // Refresh pet data every 5 seconds to catch health updates
-    const interval = setInterval(refreshPetData, 5000)
-
-    return () => clearInterval(interval)
-  }, [pet?.id])
-
-  const handleAnalysisComplete = (result: AnalysisResult) => {
+  const handleAnalysisComplete = async (result: AnalysisResult) => {
     setAnalysisResult(result)
+    // Immediately refresh pet data to show updated health
+    await refreshPetData()
   }
 
   const handleCloseScoreDisplay = () => {
@@ -145,39 +136,41 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
-      {/* Logout Button */}
-      <LogoutButton />
+    <div className="flex justify-center items-center min-h-screen bg-black">
+      {/* Fixed iPhone 16 Pro Max container (440x956) */}
+      <div className="relative w-[440px] h-[956px] overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+        {/* Logout Button */}
+        <LogoutButton />
 
-      {/* Background Decorative Vectors - Same as Welcome Page */}
-      
-      {/* Cloud 1 - Top Left */}
-      <div className="absolute top-[80px] left-[-100px] opacity-90">
-        <img src="/cloud1.svg" alt="" width={425} height={155} />
-      </div>
+        {/* Background Decorative Vectors - Exact Figma Positions */}
+        
+        {/* Cloud 1 - X=255, Y=106 */}
+        <div className="absolute" style={{ left: '255px', top: '106px' }}>
+          <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
+        </div>
 
-      {/* Cloud 2 - Bottom */}
-      <div className="absolute bottom-0 left-0 opacity-90">
-        <img src="/cloud2.svg" alt="" width={400} height={163} />
-      </div>
+        {/* Cloud 2 - X=-283, Y=238 */}
+        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
+          <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
+        </div>
 
-      {/* Cloud 3 - Top Right */}
-      <div className="absolute top-[120px] right-[-150px] opacity-90">
-        <img src="/cloud3.svg" alt="" width={265} height={118} />
-      </div>
+        {/* Cloud 3 - X=-293, Y=23 */}
+        <div className="absolute" style={{ left: '-293px', top: '23px' }}>
+          <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
+        </div>
 
-      {/* Satellite - Top Right */}
-      <div className="absolute top-[40px] right-[60px] opacity-85">
-        <img src="/satellite.svg" alt="" width={93} height={93} />
-      </div>
+        {/* Satellite - X=116, Y=145 */}
+        <div className="absolute" style={{ left: '116px', top: '145px' }}>
+          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
+        </div>
 
-      {/* Nature - Bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <img src="/nature.svg" alt="" className="w-full" />
-      </div>
+        {/* Nature - X=-85, Y=793 */}
+        <div className="absolute" style={{ left: '-85px', top: '793px' }}>
+          <img src="/nature.svg" alt="" width={610} height={163} />
+        </div>
 
-      {/* Main content area */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-8">
+        {/* Main content area */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 py-8">
         {/* Pet Glass Container - Matching Figma Design */}
         <div className="w-full max-w-[418px] h-[418px] rounded-[32px] flex items-center justify-center mb-8"
           style={{
@@ -266,6 +259,7 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           onClose={handleCloseScoreDisplay}
         />
       )}
+      </div>
     </div>
   )
 }
