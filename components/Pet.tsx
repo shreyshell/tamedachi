@@ -3,6 +3,7 @@
 import { Pet as PetType, PetHealthState } from '@/lib/types'
 import { calculateHealthState } from '@/lib/utils/scoring'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 interface PetProps {
   pet: PetType
@@ -10,8 +11,7 @@ interface PetProps {
 
 /**
  * Pet component that displays a virtual pet with different visual states
- * based on health score. The pet lives in a glass container and transitions
- * smoothly between health states.
+ * based on health score using Figma-designed SVG assets.
  */
 export default function Pet({ pet }: PetProps) {
   const [currentState, setCurrentState] = useState<PetHealthState>('neutral')
@@ -31,66 +31,72 @@ export default function Pet({ pet }: PetProps) {
     }
   }, [pet.healthScore, currentState])
 
-  // Get pet visual representation based on health state
-  const getPetVisual = (state: PetHealthState) => {
+  // Get pet SVG file based on health state
+  const getPetSVG = (state: PetHealthState) => {
     switch (state) {
       case 'very-happy':
         return {
-          emoji: '😄',
-          color: 'text-green-500',
-          bgColor: 'bg-green-50',
+          src: '/pet-veryhappy.svg',
+          width: 303,
+          height: 315,
           animation: 'animate-bounce',
           label: 'Very Happy'
         }
       case 'healthy':
         return {
-          emoji: '😊',
-          color: 'text-blue-500',
-          bgColor: 'bg-blue-50',
+          src: '/pet-healthy.svg',
+          width: 329,
+          height: 315,
           animation: 'animate-pulse',
           label: 'Healthy'
         }
       case 'neutral':
         return {
-          emoji: '😐',
-          color: 'text-yellow-500',
-          bgColor: 'bg-yellow-50',
+          src: '/pet-neutral.svg',
+          width: 305,
+          height: 287,
           animation: '',
           label: 'Neutral'
         }
       case 'unhappy':
         return {
-          emoji: '😟',
-          color: 'text-orange-500',
-          bgColor: 'bg-orange-50',
+          src: '/pet-unhappy.svg',
+          width: 307,
+          height: 315,
           animation: '',
           label: 'Unhappy'
         }
       case 'sick':
         return {
-          emoji: '😷',
-          color: 'text-red-500',
-          bgColor: 'bg-red-50',
+          src: '/pet-sick.svg',
+          width: 369,
+          height: 315,
           animation: 'animate-pulse',
           label: 'Sick'
         }
     }
   }
 
-  const visual = getPetVisual(currentState)
-  const healthStateInfo = calculateHealthState(pet.healthScore)
+  const petVisual = getPetSVG(currentState)
 
   return (
     <div className="flex items-center justify-center">
-      {/* Pet visual */}
+      {/* Pet SVG visual */}
       <div
         className={`
-          text-9xl transition-all duration-500
-          ${visual.animation}
-          ${isTransitioning ? 'scale-0 rotate-180' : 'scale-100 rotate-0'}
+          transition-all duration-500
+          ${petVisual.animation}
+          ${isTransitioning ? 'scale-0 rotate-180 opacity-0' : 'scale-100 rotate-0 opacity-100'}
         `}
       >
-        {visual.emoji}
+        <Image 
+          src={petVisual.src}
+          alt={petVisual.label}
+          width={petVisual.width}
+          height={petVisual.height}
+          priority
+          style={{ maxWidth: '320px', height: 'auto' }}
+        />
       </div>
     </div>
   )

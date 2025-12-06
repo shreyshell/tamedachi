@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import LogoutButton from './LogoutButton'
 
 interface URLInputModalProps {
   isOpen: boolean
@@ -150,26 +151,51 @@ export default function URLInputModal({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center modal-backdrop p-4"
-      onClick={handleClose}
-      onTouchEnd={handleClose}
-    >
-      <div
-        className="relative w-full max-w-md md:max-w-lg rounded-3xl bg-white p-5 md:p-6 lg:p-8 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto border-4 border-sky-100"
-        onClick={(e) => e.stopPropagation()}
-        onTouchEnd={(e) => e.stopPropagation()}
-      >
-        {/* Close button - responsive sizing */}
+    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+      {/* Logout Button */}
+      <LogoutButton />
+
+      {/* Background Decorative Vectors - Same as Dashboard */}
+      <div className="absolute top-[80px] left-[-100px] opacity-90">
+        <img src="/cloud1.svg" alt="" width={425} height={155} />
+      </div>
+      <div className="absolute bottom-0 left-0 opacity-90">
+        <img src="/cloud2.svg" alt="" width={400} height={163} />
+      </div>
+      <div className="absolute top-[120px] right-[-150px] opacity-90">
+        <img src="/cloud3.svg" alt="" width={265} height={118} />
+      </div>
+      <div className="absolute top-[40px] right-[60px] opacity-85">
+        <img src="/satellite.svg" alt="" width={93} height={93} />
+      </div>
+      <div className="absolute bottom-0 left-0 right-0">
+        <img src="/nature.svg" alt="" className="w-full" />
+      </div>
+
+      {/* Modal Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 py-8">
+        <div
+          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
+          style={{
+            background: 'rgba(255, 255, 255, 0.25)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '2px solid rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+        >
+        {/* Close button */}
         <button
           onClick={handleClose}
           onTouchEnd={handleClose}
           disabled={isLoading}
-          className="absolute top-3 right-3 md:top-4 md:right-4 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50 touch-manipulation"
+          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors disabled:opacity-50 touch-manipulation"
           aria-label="Close"
         >
           <svg
-            className="w-5 h-5 md:w-6 md:h-6"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -183,22 +209,22 @@ export default function URLInputModal({
           </svg>
         </button>
 
-        {/* Header - responsive sizing */}
-        <div className="mb-5 md:mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent mb-2">
-            Analyze Content 🔗
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Check Content
           </h2>
-          <p className="text-sm md:text-base text-gray-600 font-medium">
-            Submit a URL to check its credibility and feed your Tamedachi!
+          <p className="text-base text-white/90">
+            Submit a URL to check its credibility
           </p>
         </div>
 
-        {/* URL Input Form - responsive sizing */}
-        <form onSubmit={handleSubmit} className="mb-5 md:mb-6">
-          <div className="mb-4">
+        {/* URL Input Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
             <label
               htmlFor="url-input"
-              className="block text-sm md:text-base font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-white mb-2"
             >
               Enter URL
             </label>
@@ -212,26 +238,36 @@ export default function URLInputModal({
               }}
               placeholder="https://example.com/article"
               disabled={isLoading}
-              className="w-full px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base border-2 border-gray-200 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-300 transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '2px solid rgba(255, 255, 255, 0.5)'
+              }}
               autoComplete="off"
             />
             {error && (
-              <p className="mt-2 text-xs md:text-sm text-red-600 font-medium animate-fade-in">
+              <p className="mt-2 text-sm text-red-200 font-medium animate-fade-in bg-red-500/30 px-3 py-2 rounded-lg">
                 ⚠️ {error}
               </p>
             )}
           </div>
 
-          {/* Submit Button - responsive sizing */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isLoading || !url.trim()}
-            className="w-full py-3 md:py-3.5 px-4 text-sm md:text-base bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 active:scale-[0.98] text-white font-bold rounded-xl transition-all disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg hover:shadow-xl touch-manipulation"
+            className="w-full py-3 px-4 text-base font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl touch-manipulation hover:scale-105 active:scale-95"
+            style={{
+              background: isLoading || !url.trim() 
+                ? 'rgba(200, 200, 200, 0.5)' 
+                : 'linear-gradient(to right, #FFF085, #FFDF20, #FDC700)',
+              color: '#000'
+            }}
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">
                 <svg
-                  className="animate-spin h-5 w-5 text-white"
+                  className="animate-spin h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -257,41 +293,6 @@ export default function URLInputModal({
             )}
           </button>
         </form>
-
-        {/* Example URLs Section - responsive sizing */}
-        <div className="border-t-2 border-gray-100 pt-4">
-          <h3 className="text-sm md:text-base font-bold text-gray-700 mb-3">
-            ✨ Try these examples:
-          </h3>
-          <div className="space-y-2">
-            <button
-              type="button"
-              onClick={() => handleExampleClick('https://www.bbc.com/news')}
-              onTouchEnd={() => handleExampleClick('https://www.bbc.com/news')}
-              disabled={isLoading}
-              className="w-full text-left px-4 py-3 text-sm md:text-base text-sky-600 font-medium bg-sky-50 hover:bg-sky-100 active:bg-sky-200 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation border-2 border-sky-100"
-            >
-              📰 BBC News
-            </button>
-            <button
-              type="button"
-              onClick={() => handleExampleClick('https://www.nature.com')}
-              onTouchEnd={() => handleExampleClick('https://www.nature.com')}
-              disabled={isLoading}
-              className="w-full text-left px-4 py-3 text-sm md:text-base text-sky-600 font-medium bg-sky-50 hover:bg-sky-100 active:bg-sky-200 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation border-2 border-sky-100"
-            >
-              🔬 Nature Journal
-            </button>
-            <button
-              type="button"
-              onClick={() => handleExampleClick('https://www.wikipedia.org')}
-              onTouchEnd={() => handleExampleClick('https://www.wikipedia.org')}
-              disabled={isLoading}
-              className="w-full text-left px-4 py-3 text-sm md:text-base text-sky-600 font-medium bg-sky-50 hover:bg-sky-100 active:bg-sky-200 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation border-2 border-sky-100"
-            >
-              📚 Wikipedia
-            </button>
-          </div>
         </div>
       </div>
     </div>

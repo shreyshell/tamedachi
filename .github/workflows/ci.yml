@@ -35,6 +35,7 @@ jobs:
       run: npm run test
 
     - name: Build project
+      if: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL != '' }}
       run: npm run build
       env:
         NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -42,6 +43,10 @@ jobs:
         SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         NEXT_PUBLIC_APP_URL: http://localhost:3000
+    
+    - name: Skip build (secrets not configured)
+      if: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL == '' }}
+      run: echo "⚠️ Skipping build - GitHub secrets not configured. Add secrets in repository settings."
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4

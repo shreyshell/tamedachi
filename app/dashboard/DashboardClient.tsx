@@ -8,6 +8,7 @@ import URLInputModal from '@/components/URLInputModal'
 import HealthStatusModal from '@/components/HealthStatusModal'
 import GrowthTimelineModal from '@/components/GrowthTimelineModal'
 import NavigationButtons from '@/components/NavigationButtons'
+import LogoutButton from '@/components/LogoutButton'
 import { Pet } from '@/lib/types'
 
 interface DashboardClientProps {
@@ -144,19 +145,49 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   }
 
   return (
-    <div className="relative min-h-screen w-full bg-sky-gradient overflow-hidden flex flex-col">
-      {/* Decorative clouds */}
-      <div className="absolute top-6 -left-20 text-4xl cloud-decoration animate-pulse opacity-70">☁️</div>
-      <div className="absolute top-24 left-1/2 text-5xl cloud-decoration animate-pulse opacity-80" style={{ animationDelay: '2s' }}>☁️</div>
-      <div className="absolute top-48 -right-20 text-6xl cloud-decoration animate-pulse opacity-70" style={{ animationDelay: '1s' }}>☁️</div>
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+      {/* Logout Button */}
+      <LogoutButton />
+
+      {/* Background Decorative Vectors - Same as Welcome Page */}
       
-      {/* Satellite decoration */}
-      <div className="absolute top-32 left-32 text-3xl opacity-60 animate-pulse" style={{ animationDelay: '1.5s' }}>🛰️</div>
+      {/* Cloud 1 - Top Left */}
+      <div className="absolute top-[80px] left-[-100px] opacity-90">
+        <img src="/cloud1.svg" alt="" width={425} height={155} />
+      </div>
+
+      {/* Cloud 2 - Bottom */}
+      <div className="absolute bottom-0 left-0 opacity-90">
+        <img src="/cloud2.svg" alt="" width={400} height={163} />
+      </div>
+
+      {/* Cloud 3 - Top Right */}
+      <div className="absolute top-[120px] right-[-150px] opacity-90">
+        <img src="/cloud3.svg" alt="" width={265} height={118} />
+      </div>
+
+      {/* Satellite - Top Right */}
+      <div className="absolute top-[40px] right-[60px] opacity-85">
+        <img src="/satellite.svg" alt="" width={93} height={93} />
+      </div>
+
+      {/* Nature - Bottom */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <img src="/nature.svg" alt="" className="w-full" />
+      </div>
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-        {/* Glass container with pet or egg */}
-        <div className="w-full max-w-[418px] h-[418px] rounded-3xl glass-container shadow-2xl flex items-center justify-center mb-8">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-8">
+        {/* Pet Glass Container - Matching Figma Design */}
+        <div className="w-full max-w-[418px] h-[418px] rounded-[32px] flex items-center justify-center mb-8"
+          style={{
+            background: 'rgba(255, 255, 255, 0.25)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '2px solid rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+          }}
+        >
           {!pet && !isHatching && (
             <div className="flex flex-col items-center">
               <Egg onHatch={handleHatch} />
@@ -202,15 +233,6 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
             />
           </div>
         )}
-      </div>
-
-      {/* Nature elements at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around pb-2 text-4xl nature-decoration opacity-60">
-        <span>🌳</span>
-        <span>🌲</span>
-        <span>🌿</span>
-        <span>🌳</span>
-        <span>🌲</span>
       </div>
 
       {/* Health Status Modal */}

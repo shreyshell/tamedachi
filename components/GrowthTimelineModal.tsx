@@ -2,6 +2,7 @@
 
 import { Pet } from '@/lib/types'
 import { calculateAge } from '@/lib/utils/petHelpers'
+import LogoutButton from './LogoutButton'
 
 interface GrowthTimelineModalProps {
   isOpen: boolean
@@ -61,25 +62,50 @@ export default function GrowthTimelineModal({
   const currentStage = getCurrentStage()
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center modal-backdrop p-4"
-      onClick={handleClose}
-      onTouchEnd={handleClose}
-    >
-      <div
-        className="relative w-full max-w-md md:max-w-lg rounded-3xl bg-white p-5 md:p-6 lg:p-8 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto border-4 border-green-100"
-        onClick={(e) => e.stopPropagation()}
-        onTouchEnd={(e) => e.stopPropagation()}
-      >
-        {/* Close button - responsive sizing */}
+    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+      {/* Logout Button */}
+      <LogoutButton />
+
+      {/* Background Decorative Vectors - Same as Dashboard */}
+      <div className="absolute top-[80px] left-[-100px] opacity-90">
+        <img src="/cloud1.svg" alt="" width={425} height={155} />
+      </div>
+      <div className="absolute bottom-0 left-0 opacity-90">
+        <img src="/cloud2.svg" alt="" width={400} height={163} />
+      </div>
+      <div className="absolute top-[120px] right-[-150px] opacity-90">
+        <img src="/cloud3.svg" alt="" width={265} height={118} />
+      </div>
+      <div className="absolute top-[40px] right-[60px] opacity-85">
+        <img src="/satellite.svg" alt="" width={93} height={93} />
+      </div>
+      <div className="absolute bottom-0 left-0 right-0">
+        <img src="/nature.svg" alt="" className="w-full" />
+      </div>
+
+      {/* Modal Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 py-8">
+        <div
+          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
+          style={{
+            background: 'rgba(255, 255, 255, 0.25)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '2px solid rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+        >
+        {/* Close button */}
         <button
           onClick={handleClose}
           onTouchEnd={handleClose}
-          className="absolute top-3 right-3 md:top-4 md:right-4 text-gray-500 hover:text-gray-700 transition-colors touch-manipulation"
+          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors touch-manipulation"
           aria-label="Close"
         >
           <svg
-            className="w-5 h-5 md:w-6 md:h-6"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -93,13 +119,13 @@ export default function GrowthTimelineModal({
           </svg>
         </button>
 
-        {/* Header - responsive sizing */}
-        <div className="mb-5 md:mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-            Growth Timeline 📈
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Check Growth Stage
           </h2>
-          <p className="text-sm md:text-base text-gray-600 font-medium">
-            Watch your Tamedachi grow with every good content choice!
+          <p className="text-base text-white/90">
+            See how your Tamedachi is growing
           </p>
         </div>
 
@@ -112,125 +138,86 @@ export default function GrowthTimelineModal({
         )}
 
         {pet && (
-          <div className="space-y-4 md:space-y-6">
-            {/* Current Growth Stage - responsive sizing */}
-            <div className="text-center p-5 md:p-7 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl border-2 border-green-200 shadow-lg">
-              <div className="text-6xl md:text-7xl lg:text-8xl mb-3 md:mb-4 animate-bounce">{currentStage.emoji}</div>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-800 mb-2">
+          <div className="space-y-6">
+            {/* Current Stage Display */}
+            <div className="text-center">
+              <div className="text-7xl mb-4">{currentStage.emoji}</div>
+              <h3 className="text-2xl font-bold text-white mb-2">
                 {currentStage.name}
               </h3>
-              <p className="text-sm md:text-base text-gray-600 font-medium">
-                Current Growth Stage
+              <p className="text-lg text-white/90 mb-4">
+                Age: {ageYears} {ageYears === 1 ? 'year' : 'years'} old
               </p>
-            </div>
-
-            {/* Age Display - responsive sizing */}
-            <div className="p-4 md:p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-md">
-              <div className="flex justify-between items-center">
-                <span className="text-sm md:text-base font-bold text-blue-700">
-                  Age
-                </span>
-                <span className="text-2xl md:text-3xl font-extrabold text-blue-700">
-                  {ageYears} {ageYears === 1 ? 'year' : 'years'} old
-                </span>
-              </div>
-            </div>
-
-            {/* Progress to Next Year - responsive sizing */}
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs md:text-sm font-semibold text-gray-700">
-                  Progress to Next Year
-                </span>
-                <span className="text-xs md:text-sm font-bold text-green-600">
-                  {progressToNextYear}/100
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3 md:h-4 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full transition-all duration-500"
-                  style={{ width: `${progressToNextYear}%` }}
-                />
-              </div>
-              <p className="text-[10px] md:text-xs text-gray-600 mt-2">
-                {100 - progressToNextYear} more good content pieces to grow!
-              </p>
-            </div>
-
-            {/* Growth Timeline - responsive sizing */}
-            <div>
-              <h4 className="text-xs md:text-sm font-semibold text-gray-700 mb-3">
-                Growth Timeline
-              </h4>
-              <div className="space-y-2 md:space-y-3">
-                {GROWTH_STAGES.map((stage) => {
-                  const isCurrentStage = stage.name === currentStage.name
-                  const isPastStage = goodContentCount > stage.maxCount
-                  
-                  return (
-                    <div
-                      key={stage.name}
-                      className={`flex items-center gap-2 md:gap-3 p-2.5 md:p-3 rounded-lg transition-all ${
-                        isCurrentStage
-                          ? 'bg-green-100 border-2 border-green-400'
-                          : isPastStage
-                          ? 'bg-gray-100 border border-gray-300'
-                          : 'bg-white border border-gray-200'
-                      }`}
-                    >
-                      <div className="text-2xl md:text-3xl">{stage.emoji}</div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-1.5 md:gap-2 flex-wrap">
-                          <span className={`text-sm md:text-base font-semibold ${
-                            isCurrentStage ? 'text-green-700' : 'text-gray-700'
-                          }`}>
-                            {stage.name}
-                          </span>
-                          {isCurrentStage && (
-                            <span className="text-[10px] md:text-xs bg-green-500 text-white px-1.5 md:px-2 py-0.5 rounded-full">
-                              Current
-                            </span>
-                          )}
-                          {isPastStage && (
-                            <span className="text-[10px] md:text-xs bg-gray-500 text-white px-1.5 md:px-2 py-0.5 rounded-full">
-                              Completed
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-[10px] md:text-xs text-gray-600 mt-1">
-                          {stage.maxCount === Infinity
-                            ? `${stage.minCount}+ good content`
-                            : `${stage.minCount}-${stage.maxCount} good content`}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Encouragement Message - responsive sizing */}
-            <div className="p-4 md:p-5 bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 border-2 border-purple-200 rounded-xl shadow-md">
-              <div className="flex items-start gap-3 md:gap-4">
-                <span className="text-2xl md:text-3xl">🌟</span>
-                <div>
-                  <h4 className="text-sm md:text-base font-bold text-purple-800 mb-2">
-                    Keep Growing!
-                  </h4>
-                  <p className="text-sm md:text-base text-purple-700 font-medium">
-                    {ageYears === 0
-                      ? "Your Tamedachi is just starting its journey! Feed it quality content to help it grow."
-                      : ageYears < 2
-                      ? "Your Tamedachi is growing wise! Keep choosing credible sources."
-                      : ageYears < 4
-                      ? "Amazing progress! Your Tamedachi is becoming a media literacy expert!"
-                      : "Incredible! Your Tamedachi has reached elder wisdom. You're a champion of quality content!"}
-                  </p>
+              
+              {/* Progress Bar */}
+              <div className="mb-2">
+                <div className="flex justify-between text-sm text-white/80 mb-1">
+                  <span>Progress to Next Year</span>
+                  <span>{progressToNextYear}/100</span>
+                </div>
+                <div className="w-full rounded-full h-4 overflow-hidden"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.3)'
+                  }}
+                >
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{ 
+                      width: `${progressToNextYear}%`,
+                      background: 'linear-gradient(to right, #4CAF50, #8BC34A)'
+                    }}
+                  />
                 </div>
               </div>
             </div>
+
+            {/* Growth Stages */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-semibold text-white/90 mb-2">
+                Growth Stages
+              </h4>
+              {GROWTH_STAGES.map((stage) => {
+                const isCurrentStage = stage.name === currentStage.name
+                const isPastStage = goodContentCount > stage.maxCount
+                
+                return (
+                  <div
+                    key={stage.name}
+                    className={`flex items-center gap-3 p-3 rounded-lg transition-all`}
+                    style={{
+                      background: isCurrentStage 
+                        ? 'rgba(76, 175, 80, 0.3)' 
+                        : isPastStage
+                        ? 'rgba(255, 255, 255, 0.15)'
+                        : 'rgba(255, 255, 255, 0.1)',
+                      border: `2px solid ${isCurrentStage ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 255, 255, 0.2)'}`
+                    }}
+                  >
+                    <div className="text-3xl">{stage.emoji}</div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base font-semibold text-white">
+                          {stage.name}
+                        </span>
+                        {isCurrentStage && (
+                          <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                            Current
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-xs text-white/70 mt-1">
+                        {stage.maxCount === Infinity
+                          ? `${stage.minCount}+ good content`
+                          : `${stage.minCount}-${stage.maxCount} good content`}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   )

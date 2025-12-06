@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Pet } from '@/lib/types'
 import { calculateHealthState } from '@/lib/utils/petHelpers'
+import LogoutButton from './LogoutButton'
 
 interface HealthStatusModalProps {
   isOpen: boolean
@@ -137,26 +138,51 @@ export default function HealthStatusModal({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center modal-backdrop p-4"
-      onClick={handleClose}
-      onTouchEnd={handleClose}
-    >
-      <div
-        className="relative w-full max-w-md md:max-w-lg rounded-3xl bg-white p-5 md:p-6 lg:p-8 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto border-4 border-pink-100"
-        onClick={(e) => e.stopPropagation()}
-        onTouchEnd={(e) => e.stopPropagation()}
-      >
-        {/* Close button - responsive sizing */}
+    <div className="fixed inset-0 z-50 overflow-hidden bg-gradient-to-b from-[#87CEEB] via-[#B0E0E6] to-[#E0F2F7]">
+      {/* Logout Button */}
+      <LogoutButton />
+
+      {/* Background Decorative Vectors - Same as Dashboard */}
+      <div className="absolute top-[80px] left-[-100px] opacity-90">
+        <img src="/cloud1.svg" alt="" width={425} height={155} />
+      </div>
+      <div className="absolute bottom-0 left-0 opacity-90">
+        <img src="/cloud2.svg" alt="" width={400} height={163} />
+      </div>
+      <div className="absolute top-[120px] right-[-150px] opacity-90">
+        <img src="/cloud3.svg" alt="" width={265} height={118} />
+      </div>
+      <div className="absolute top-[40px] right-[60px] opacity-85">
+        <img src="/satellite.svg" alt="" width={93} height={93} />
+      </div>
+      <div className="absolute bottom-0 left-0 right-0">
+        <img src="/nature.svg" alt="" className="w-full" />
+      </div>
+
+      {/* Modal Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 py-8">
+        <div
+          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
+          style={{
+            background: 'rgba(255, 255, 255, 0.25)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '2px solid rgba(255, 255, 255, 0.4)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+        >
+        {/* Close button */}
         <button
           onClick={handleClose}
           onTouchEnd={handleClose}
           disabled={isLoading}
-          className="absolute top-3 right-3 md:top-4 md:right-4 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50 touch-manipulation"
+          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors disabled:opacity-50 touch-manipulation"
           aria-label="Close"
         >
           <svg
-            className="w-5 h-5 md:w-6 md:h-6"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -170,13 +196,13 @@ export default function HealthStatusModal({
           </svg>
         </button>
 
-        {/* Header - responsive sizing */}
-        <div className="mb-5 md:mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent mb-2">
-            Health Status ❤️
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Check Health
           </h2>
-          <p className="text-sm md:text-base text-gray-600 font-medium">
-            Check how your Tamedachi is feeling!
+          <p className="text-base text-white/90">
+            See how your Tamedachi is feeling
           </p>
         </div>
 
@@ -212,101 +238,84 @@ export default function HealthStatusModal({
         )}
 
         {!isLoading && pet && (
-          <div className="space-y-4 md:space-y-6">
-            {/* Current Mood - responsive sizing */}
-            <div className="text-center p-5 md:p-7 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 rounded-2xl border-2 border-pink-100 shadow-lg">
-              <div className="text-6xl md:text-7xl lg:text-8xl mb-3 md:mb-4 animate-bounce">{getMoodEmoji()}</div>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-800 mb-2">
+          <div className="space-y-6">
+            {/* Health Score Display */}
+            <div className="text-center">
+              <div className="text-7xl mb-4">{getMoodEmoji()}</div>
+              <h3 className="text-2xl font-bold text-white mb-2">
                 {healthState?.state.split('-').map(word => 
                   word.charAt(0).toUpperCase() + word.slice(1)
                 ).join(' ')}
               </h3>
-              <p className="text-sm md:text-base text-gray-600 font-medium">
-                Current Mood
+              <p className="text-lg text-white/90 mb-4">
+                Health Score: {Math.round(pet.healthScore)}/100
               </p>
-            </div>
-
-            {/* Health Score with Progress Bar - responsive sizing */}
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs md:text-sm font-semibold text-gray-700">
-                  Health Score
-                </span>
-                <span className="text-base md:text-lg font-bold text-sky-600">
-                  {Math.round(pet.healthScore)}/100
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3 md:h-4 overflow-hidden">
+              
+              {/* Progress Bar */}
+              <div className="w-full rounded-full h-4 overflow-hidden"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.3)'
+                }}
+              >
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${
-                    pet.healthScore >= 80
-                      ? 'bg-green-500'
+                  className={`h-full rounded-full transition-all duration-500`}
+                  style={{ 
+                    width: `${Math.min(100, Math.max(0, pet.healthScore))}%`,
+                    background: pet.healthScore >= 80
+                      ? '#4CAF50'
                       : pet.healthScore >= 60
-                      ? 'bg-blue-500'
+                      ? '#8BC34A'
                       : pet.healthScore >= 40
-                      ? 'bg-yellow-500'
+                      ? '#FFC107'
                       : pet.healthScore >= 20
-                      ? 'bg-orange-500'
-                      : 'bg-red-500'
-                  }`}
-                  style={{ width: `${Math.min(100, Math.max(0, pet.healthScore))}%` }}
+                      ? '#FF9800'
+                      : '#F44336'
+                  }}
                 />
               </div>
             </div>
 
-            {/* Statistics Grid - responsive sizing */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              {/* Good Content Counter */}
-              <div className="p-4 md:p-5 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl shadow-md">
-                <div className="text-2xl md:text-3xl font-extrabold text-green-700">
+            {/* Statistics */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center p-4 rounded-xl"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  border: '2px solid rgba(255, 255, 255, 0.3)'
+                }}
+              >
+                <div className="text-3xl font-bold text-white">
                   {pet.goodContentCount}
                 </div>
-                <div className="text-xs md:text-sm text-green-600 mt-1 font-semibold">
+                <div className="text-sm text-white/80 mt-1">
                   Good Content
                 </div>
               </div>
 
-              {/* Total Checks Counter */}
-              <div className="p-4 md:p-5 bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200 rounded-xl shadow-md">
-                <div className="text-2xl md:text-3xl font-extrabold text-blue-700">
+              <div className="text-center p-4 rounded-xl"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  border: '2px solid rgba(255, 255, 255, 0.3)'
+                }}
+              >
+                <div className="text-3xl font-bold text-white">
                   {stats?.totalChecks || 0}
                 </div>
-                <div className="text-xs md:text-sm text-blue-600 mt-1 font-semibold">
+                <div className="text-sm text-white/80 mt-1">
                   Total Checks
                 </div>
               </div>
             </div>
 
-            {/* Accuracy Rate - responsive sizing */}
-            {stats && stats.totalChecks > 0 && (
-              <div className="p-4 md:p-5 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl shadow-md">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm md:text-base font-bold text-purple-700">
-                    Accuracy Rate
-                  </span>
-                  <span className="text-2xl md:text-3xl font-extrabold text-purple-700">
-                    {Math.round(stats.accuracyRate)}%
-                  </span>
-                </div>
-                <div className="mt-2 text-xs md:text-sm text-purple-600 font-medium">
-                  Percentage of good content consumed
-                </div>
-              </div>
-            )}
-
-            {/* Contextual Tip - responsive sizing */}
-            <div className="p-4 md:p-5 bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border-2 border-amber-200 rounded-xl shadow-md">
-              <div className="flex items-start gap-3 md:gap-4">
-                <span className="text-2xl md:text-3xl">💡</span>
-                <div>
-                  <h4 className="text-sm md:text-base font-bold text-amber-800 mb-2">
-                    Tip
-                  </h4>
-                  <p className="text-sm md:text-base text-amber-700 font-medium">
-                    {getContextualTip()}
-                  </p>
-                </div>
-              </div>
+            {/* Tip */}
+            <div className="p-4 rounded-xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: '2px solid rgba(255, 255, 255, 0.3)'
+              }}
+            >
+              <p className="text-sm text-white/90">
+                {getContextualTip()}
+              </p>
             </div>
           </div>
         )}
@@ -318,6 +327,7 @@ export default function HealthStatusModal({
             </p>
           </div>
         )}
+        </div>
       </div>
     </div>
   )

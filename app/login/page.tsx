@@ -97,8 +97,17 @@ export default function LoginPage() {
         <div className="relative flex flex-col items-center">
           {/* Egg Logo */}
           <div className="mb-16 flex items-center justify-center">
-            <div className="w-[108px] h-[108px] rounded-full shadow-2xl bg-gradient-to-br from-yellow-100 to-yellow-300 flex items-center justify-center rotate-3">
-              <div className="text-6xl -rotate-3">🥚</div>
+            <div className="w-[108px] h-[108px] rounded-full shadow-2xl bg-gradient-to-br from-[#FFF085] via-[#FFDF20] to-[#FDC700] flex items-center justify-center rotate-3">
+              <div className="-rotate-3 w-[45px] h-[60px] flex items-center justify-center">
+                {/* Egg shape with gradient matching Figma */}
+                <div 
+                  className="w-full h-full" 
+                  style={{
+                    background: 'linear-gradient(180deg, #692B5F 0%, #7A386B 20%, #8B4475 40%, #9C5280 60%, #AD608C 80%, #C07199 90%, #D282A5 95%, #E593B3 98%, #F8A6C1 100%)',
+                    borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%'
+                  }}
+                />
+              </div>
             </div>
           </div>
           
@@ -179,7 +188,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-white/90 hover:bg-white rounded-lg py-2.5 text-sm font-medium text-black shadow-lg transition-all hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-br from-[#FFF085] via-[#FFDF20] to-[#FDC700] hover:shadow-2xl rounded-lg py-2.5 text-sm font-medium text-black shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Loading...' : 'Login'}
             </button>
