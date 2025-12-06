@@ -370,6 +370,5 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
         />
       )}
     </div>
-    </div>
   )
 }
