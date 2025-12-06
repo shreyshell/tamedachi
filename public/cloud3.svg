@@ -1,17 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with Vectornator (http://vectornator.io/) -->
-<svg height="163.0pt" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 363.606 163" width="363.6062801453446pt" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="372.34501061571126 0 193.0456475583864 119.19796954314721" style="max-height: 500px" width="193.0456475583864" height="119.19796954314721">
+<g filter="url(#filter0_g_103_3124)" opacity="0.9">
+<path fill="url(#paint0_linear_103_3124)" d="M16.3781 111.929C10.0578 110.698 5.29999 105.277 5.29999 98.7805C5.29999 91.3781 11.4797 85.3703 19.1008 85.3703C21.757 85.3703 24.2375 86.1047 26.3508 87.3703C40.1281 65.7844 65.0187 51.3547 93.3976 51.3547C100.89 51.3547 108.128 52.3586 114.987 54.2336C123.441 38.4758 137.827 25.3508 156.351 18.4172C181.679 8.94061 208.417 13.4133 227.28 27.9328C235.64 14.3586 250.659 5.29999 267.788 5.29999C283.538 5.29999 297.507 12.9641 306.159 24.7531C320.077 12.5695 337.62 5.29999 356.667 5.29999C386.487 5.29999 412.62 23.1203 426.941 49.7258C429.757 49.382 432.628 49.2062 435.538 49.2062C453.468 49.2062 469.827 55.8781 482.23 66.8508C485.12 66.4133 488.077 66.1867 491.101 66.1867C508.448 66.1867 523.96 73.7062 534.148 85.4797C536.62 83.5187 539.718 82.3547 543.077 82.3547C551.14 82.3547 557.679 89.0383 557.679 97.2726C557.679 104.413 552.757 110.39 546.191 111.851C546.21 111.964 546.218 112.077 546.237 112.191H16.3195C16.3391 112.105 16.3586 112.015 16.3781 111.929Z" clip-rule="evenodd" fill-rule="evenodd"/>
+</g>
 <defs>
-<linearGradient gradientTransform="matrix(-262.409 -151.91 151.91 -262.409 149.112 156.631)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="0" x2="1" y1="0" y2="0">
-<stop offset="0" stop-color="#f0efeb"/>
-<stop offset="1" stop-color="#ffffff"/>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="117.491" width="562.979" y="-1.23978e-05" x="-1.23978e-05" id="filter0_g_103_3124">
+<feFlood result="BackgroundImageFix" flood-opacity="0"/>
+<feBlend result="shape" in2="BackgroundImageFix" in="SourceGraphic" mode="normal"/>
+<feTurbulence seed="2586" numOctaves="3" baseFrequency="1.25 1.25" type="fractalNoise"/>
+<feDisplacementMap height="100%" width="100%" result="displacedImage" yChannelSelector="G" xChannelSelector="R" scale="10.600000381469727" in="shape"/>
+<feMerge result="effect1_texture_103_3124">
+<feMergeNode in="displacedImage"/>
+</feMerge>
+</filter>
+<linearGradient gradientUnits="userSpaceOnUse" y2="5.29998" x2="227.179" y1="112.191" x1="335.8" id="paint0_linear_103_3124">
+<stop stop-color="#F0EFEB"/>
+<stop stop-color="white" offset="1"/>
 </linearGradient>
 </defs>
-<clipPath id="ArtboardFrame">
-<rect height="163" width="363.606" x="0" y="0"/>
-</clipPath>
-<g clip-path="url(#ArtboardFrame)" id="Untitled">
-<path d="M335.576 156.631C347.056 156.631 356.377 147.608 356.377 136.494C356.377 125.377 347.056 116.354 335.576 116.354C331.076 116.354 326.908 117.741 323.502 120.096C327.763 102.815 315.615 83.5339 294.998 75.8972C282.193 71.155 268.943 71.948 258.818 77.0339C256.56 58.6472 241.275 40.5886 218.732 32.2371C195.33 23.573 171.052 27.9363 157.619 41.5769C130.99 18.655 95.9122 4.72147 57.4942 4.72147C8.87321 4.72147-34.4008 27.0379-61.9588 61.6433C-71.8618 58.8308-82.3498 57.323-93.1898 57.323C-124.682 57.323-153.1 70.0457-173.182 90.4285C-182.28 85.9949-192.53 83.5066-203.37 83.5066C-222.401 83.5066-239.631 91.1941-251.99 103.584C-257.272 99.2019-264.069 96.5613-271.479 96.5613C-284.6 96.5613-295.779 104.815-300.022 116.358C-311.381 116.491-320.561 125.463-320.561 136.494C-320.561 146.932-312.338 155.526-301.83 156.534L-301.83 156.631L335.576 156.631Z" fill="url(#LinearGradient)" fill-rule="evenodd" opacity="0.9" stroke="none"/>
-</g>
 </svg>

@@ -167,9 +167,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/station.svg" alt="" width={71} height={89} />
         </div>
 
-        {/* Field - Bottom landscape, positioned to fill viewport width */}
-        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px' }}>
-          <img src="/field.svg" alt="" width={610} height={163} style={{ objectFit: 'cover', width: '100%', height: '100%', objectPosition: 'center' }} />
+        {/* Field - Bottom landscape, completely flush with bottom border */}
+        <div className="absolute" style={{ left: '0px', bottom: '0px', width: '440px', height: '163px', overflow: 'hidden' }}>
+          <img src="/field.svg" alt="" width={610} height={163} style={{ display: 'block', objectFit: 'cover', width: '100%', height: '100%', objectPosition: 'center', margin: '0', padding: '0' }} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}

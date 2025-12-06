@@ -28,116 +28,100 @@ export default function ScoreDisplay({
   const [showAnalysis, setShowAnalysis] = useState(false)
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-8" style={{ background: 'rgba(0, 0, 0, 0.4)' }}>
-        <div 
-          className="relative w-full max-w-md rounded-[32px] p-8 animate-fade-in max-h-[90vh] overflow-y-auto"
+    <>
+      {/* Compact Score Card - Positioned below pet */}
+      <div 
+        className="absolute rounded-[20px] z-50 text-center"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          left: '110px',
+          top: '680px',
+          width: '220px',
+          background: '#FFFFFF',
+          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+          padding: '16px 20px'
+        }}
+      >
+        {/* Score */}
+        <p 
+          className="font-normal mb-2"
           style={{
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '2px solid rgba(255, 255, 255, 0.4)',
-            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)'
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontFamily: 'Fredoka, sans-serif',
+            color: score >= 50 ? '#10B981' : '#EF4444',
+            fontWeight: 500
           }}
-          onClick={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
         >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          onTouchEnd={onClose}
-          className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors touch-manipulation"
-          aria-label="Close"
+          Score: {score}/100
+        </p>
+        
+        {/* Quality message */}
+        <p 
+          className="font-normal mb-2"
+          style={{
+            fontSize: '14px',
+            lineHeight: '18px',
+            fontFamily: 'Fredoka, sans-serif',
+            color: '#6B7280'
+          }}
         >
-          <svg 
-            className="w-6 h-6" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M6 18L18 6M6 6l12 12" 
-            />
-          </svg>
-        </button>
+          {qualityMessage}
+        </p>
 
-        {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Content Analysis
-          </h2>
-        </div>
-
-        {/* Score display */}
-        <div className="text-center mb-6">
-          <div className={`text-7xl font-extrabold mb-4 drop-shadow-lg`}
-            style={{ 
-              color: score >= 50 ? '#4CAF50' : '#F44336'
-            }}
-          >
-            {score}/100
-          </div>
-          
-          {/* Quality message */}
-          <div className="text-2xl font-bold text-white px-2 mb-4">
-            {qualityMessage}
-          </div>
-
-          {/* Visual indicator */}
-          <div className="w-full rounded-full h-4 overflow-hidden"
-            style={{
-              background: 'rgba(255, 255, 255, 0.3)'
-            }}
-          >
-            <div
-              className="h-full rounded-full transition-all duration-700"
-              style={{ 
-                width: `${score}%`,
-                background: score >= 50 ? '#4CAF50' : '#F44336'
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Analysis Summary */}
+        {/* Read Summary link */}
         {analysis && (
-          <div className="mb-6">
-            <button
-              onClick={() => setShowAnalysis(!showAnalysis)}
-              onTouchEnd={() => setShowAnalysis(!showAnalysis)}
-              className="text-base text-white hover:text-gray-200 font-bold underline transition-colors touch-manipulation mb-3"
+          <button
+            onClick={() => setShowAnalysis(!showAnalysis)}
+            className="font-normal underline transition-colors hover:opacity-70"
+            style={{
+              fontSize: '14px',
+              lineHeight: '18px',
+              fontFamily: 'Fredoka, sans-serif',
+              color: '#6B7280'
+            }}
+          >
+            {showAnalysis ? 'Hide Summary' : 'Read Summary'}
+          </button>
+        )}
+        
+        {/* Analysis Summary (expanded) */}
+        {showAnalysis && analysis && (
+          <div 
+            className="mt-3 pt-3 animate-fade-in"
+            style={{
+              borderTop: '1px solid #E5E7EB'
+            }}
+          >
+            <p 
+              style={{
+                fontSize: '12px',
+                lineHeight: '16px',
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#4B5563',
+                textAlign: 'left'
+              }}
             >
-              {showAnalysis ? '📖 Hide Summary' : '📖 Read Summary'}
-            </button>
+              {analysis}
+            </p>
             
-            {showAnalysis && (
-              <div className="p-4 rounded-xl text-left text-sm text-white/90 animate-fade-in"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  border: '2px solid rgba(255, 255, 255, 0.3)'
-                }}
-              >
-                {analysis}
-              </div>
-            )}
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="mt-3 w-full rounded-lg font-medium transition-all hover:opacity-90"
+              style={{
+                height: '36px',
+                background: 'linear-gradient(135deg, #FFF085 0%, #FFDF20 50%, #FDC700 100%)',
+                fontSize: '14px',
+                fontFamily: 'Fredoka, sans-serif',
+                color: '#000000'
+              }}
+            >
+              Got it!
+            </button>
           </div>
         )}
-
-        {/* Action button */}
-        <button
-          onClick={onClose}
-          onTouchEnd={onClose}
-          className="w-full py-3 px-4 text-base font-bold rounded-xl transition-all shadow-lg hover:shadow-xl touch-manipulation hover:scale-105 active:scale-95"
-          style={{
-            background: 'linear-gradient(to right, #FFF085, #FFDF20, #FDC700)',
-            color: '#000'
-          }}
-        >
-          Got it!
-        </button>
-        </div>
-    </div>
+      </div>
+    </>
   )
 }
