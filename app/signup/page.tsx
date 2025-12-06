@@ -5,17 +5,18 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
 
   const validateForm = (): boolean => {
-    if (!email || !password) {
-      setError('Please enter both email and password')
+    if (!email || !password || !confirmPassword) {
+      setError('Please fill in all fields')
       return false
     }
 
@@ -28,6 +29,11 @@ export default function LoginPage() {
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters')
+      return false
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
       return false
     }
 
@@ -45,31 +51,29 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      // Log in existing user
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      // Sign up new user
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       })
 
-      if (signInError) {
+      if (signUpError) {
         // Handle authentication errors
-        if (signInError.message.includes('Invalid login credentials') || signInError.message.includes('Invalid')) {
-          setError('Invalid email or password')
-        } else if (signInError.message.includes('Email not confirmed')) {
-          setError('Please confirm your email address before logging in')
-        } else if (signInError.message.includes('rate limit')) {
-          setError('Too many login attempts. Please wait a moment and try again.')
-        } else if (signInError.message.includes('network')) {
+        if (signUpError.message.includes('already registered')) {
+          setError('This email is already registered. Please log in instead.')
+        } else if (signUpError.message.includes('rate limit')) {
+          setError('Too many sign up attempts. Please wait a moment and try again.')
+        } else if (signUpError.message.includes('network')) {
           setError('No internet connection. Please check your network.')
         } else {
-          setError(signInError.message || 'Failed to log in. Please try again.')
+          setError(signUpError.message || 'Failed to sign up. Please try again.')
         }
         return
       }
 
       if (data.user) {
-        // Redirect to dashboard after successful login
-        router.push('/dashboard')
+        // Redirect to welcome page after successful sign up
+        router.push('/')
       }
     } catch (err) {
       // Handle network errors
@@ -83,8 +87,6 @@ export default function LoginPage() {
       setLoading(false)
     }
   }
-
-
 
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2] flex items-center justify-center px-6 py-8">
@@ -119,7 +121,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Login Container */}
+        {/* Sign Up Container */}
         <div className="rounded-3xl shadow-2xl backdrop-blur-md bg-white/20 border border-white/30 p-8">
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Email Container */}
@@ -164,10 +166,36 @@ export default function LoginPage() {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white/20 border border-white/30 rounded-lg pl-10 pr-3 py-2 text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            {/* Confirm Password Container */}
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm text-[#4a5565] mb-2">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect x="3" y="8" width="14" height="9" rx="1" stroke="white" strokeWidth="1.5" fill="none"/>
+                    <path d="M6 8V5a4 4 0 018 0v3" stroke="white" strokeWidth="1.5" fill="none"/>
+                  </svg>
+                </div>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full bg-white/20 border border-white/30 rounded-lg pl-10 pr-3 py-2 text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50"
                   placeholder="••••••••"
                 />
@@ -181,23 +209,23 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* Login Button */}
+            {/* Sign Up Button */}
             <button
               type="submit"
               disabled={loading}
               className="w-full bg-gradient-to-br from-[#FFF085] via-[#FFDF20] to-[#FDC700] hover:shadow-2xl rounded-lg py-2.5 text-sm font-medium text-black shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Loading...' : 'Login'}
+              {loading ? 'Creating account...' : 'Sign Up'}
             </button>
           </form>
 
-          {/* Sign Up Link */}
+          {/* Login Link */}
           <div className="mt-6 text-center">
             <Link
-              href="/signup"
+              href="/login"
               className="text-sm text-white/80 underline hover:text-white transition-colors"
             >
-              Don't have an account? Sign up
+              Already have an account? Log in
             </Link>
           </div>
         </div>
