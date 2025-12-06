@@ -38,20 +38,20 @@ export default function ScoreDisplay({
       <LogoutButton />
 
       {/* Background Decorative Vectors - Same as Dashboard */}
-      <div className="absolute top-[80px] left-[-100px] opacity-90">
-        <img src="/cloud1.svg" alt="" width={425} height={155} />
+      <div className="absolute" style={{ left: '-293px', top: '23px' }}>
+        <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
       </div>
-      <div className="absolute bottom-0 left-0 opacity-90">
-        <img src="/cloud2.svg" alt="" width={400} height={163} />
+      <div className="absolute" style={{ left: '-283px', top: '238px' }}>
+        <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
       </div>
-      <div className="absolute top-[120px] right-[-150px] opacity-90">
-        <img src="/cloud3.svg" alt="" width={265} height={118} />
+      <div className="absolute" style={{ left: '255px', top: '106px' }}>
+        <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
       </div>
-      <div className="absolute top-[40px] right-[60px] opacity-85">
-        <img src="/satellite.svg" alt="" width={93} height={93} />
+      <div className="absolute" style={{ left: '116px', top: '145px' }}>
+        <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
       </div>
-      <div className="absolute bottom-0 left-0 right-0">
-        <img src="/nature.svg" alt="" className="w-full" />
+      <div className="absolute" style={{ left: '-85px', top: '793px' }}>
+        <img src="/nature.svg" alt="" width={610} height={163} />
       </div>
 
       {/* Modal Content */}

@@ -147,8 +147,8 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/cloud3.svg" alt="" width={552.38} height={106.89} />
         </div>
 
-        {/* Cloud 2 - X=393.9375, Y=238 (note: Figma shows this differently) */}
-        <div className="absolute" style={{ left: '393.9375px', top: '238px' }}>
+        {/* Cloud 2 - X=-283, Y=238 */}
+        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
           <img src="/cloud2.svg" alt="" width={676.94} height={151.91} />
         </div>
 
@@ -157,9 +157,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/cloud1.svg" alt="" width={414.38} height={143.73} />
         </div>
 
-        {/* Satellite - X=130.84, Y=145 */}
-        <div className="absolute" style={{ left: '130.84px', top: '145px' }}>
-          <img src="/satellite.svg" alt="" width={92.8} height={92.8} />
+        {/* Satellite - X=116, Y=145 */}
+        <div className="absolute" style={{ left: '116px', top: '145px' }}>
+          <img src="/satellite.svg" alt="" width={79.36} height={79.36} />
         </div>
 
         {/* Nature - X=-85, Y=793 */}
