@@ -119,10 +119,15 @@ export default function URLInputModal({
   }
 
   return (
-    <div className="absolute inset-0 z-50">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+      onClick={handleClose}
+    >
       {/* Modal Container - X=37, Y=269, W=366, H=508 */}
       <div 
         className="absolute rounded-[32px]"
+        onClick={(e) => e.stopPropagation()}
         style={{
           left: '37px',
           top: '269px',
