@@ -162,8 +162,7 @@ export default function HealthStatusModal({ isOpen, onClose, pet }: HealthStatus
           {/* Close button */}
           <button
             onClick={handleClose}
-            disabled={isLoading}
-            className="flex items-center justify-center transition-opacity disabled:opacity-50 hover:opacity-70"
+            className="flex items-center justify-center transition-opacity hover:opacity-70"
             style={{
               width: '36px',
               height: '36px'

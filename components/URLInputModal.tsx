@@ -99,6 +99,7 @@ export default function URLInputModal({
       })
 
       setUrl('')
+      setIsLoading(false)
       onClose()
     } catch (err) {
       if (err instanceof TypeError && err.message.includes('fetch')) {
@@ -114,6 +115,7 @@ export default function URLInputModal({
     if (!isLoading) {
       setUrl('')
       setError(null)
+      setIsLoading(false)
       onClose()
     }
   }
@@ -182,8 +184,7 @@ export default function URLInputModal({
             {/* Close button */}
             <button
               onClick={handleClose}
-              disabled={isLoading}
-              className="flex items-center justify-center transition-opacity disabled:opacity-50 hover:opacity-70"
+              className="flex items-center justify-center transition-opacity hover:opacity-70"
               style={{
                 width: '36px',
                 height: '36px'
@@ -246,18 +247,18 @@ export default function URLInputModal({
             {/* Analyze Button */}
             <button
               type="submit"
-              disabled={isLoading || !url.trim()}
-              className="w-full mt-4 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-2xl flex items-center justify-center gap-2"
+              disabled={isLoading}
+              className="w-full mt-4 rounded-xl font-medium transition-all hover:shadow-2xl flex items-center justify-center gap-2"
               style={{
                 height: '56px',
-                background: isLoading || !url.trim() 
-                  ? 'rgba(200, 200, 200, 0.5)' 
-                  : 'linear-gradient(135deg, #FFF085 0%, #FFDF20 50%, #FDC700 100%)',
+                background: 'linear-gradient(135deg, #FFF085 0%, #FFDF20 50%, #FDC700 100%)',
                 fontSize: '16px',
                 lineHeight: '24px',
                 fontFamily: 'Fredoka, sans-serif',
                 color: '#000000',
-                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'
+                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+                opacity: isLoading ? 0.5 : 1,
+                cursor: isLoading ? 'not-allowed' : 'pointer'
               }}
             >
               {isLoading ? (

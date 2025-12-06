@@ -51,30 +51,30 @@ function categorizeScore(score: number): { category: QualityCategory; message: s
  */
 export async function analyzeContent(url: string): Promise<ContentAnalysisResult> {
   try {
-    const prompt = `Analyze the credibility and quality of the following URL as a media source: ${url}
+    const prompt = `Analyze the credibility and quality of the specific content at this URL: ${url}
 
 Please evaluate based on:
-- Domain reputation and authority
-- Presence of fact-checking and citations
-- Potential bias or sensationalism
-- Author credentials (if available)
-- Overall trustworthiness as a news/information source
+1. **Source Domain**: Reputation, authority, and track record of the publication
+2. **Author Analysis**: Author's credentials, expertise, past work, and reputation (if identifiable)
+3. **Content Quality**: Presence of fact-checking, citations, sources, and evidence
+4. **Bias & Tone**: Potential bias, sensationalism, clickbait, or misleading framing
+5. **Specific Content**: Any red flags, claims that need verification, or important context about THIS specific article/content
 
 Respond in JSON format with:
 {
   "score": <number 0-100>,
   "reasons": [<array of 2-3 brief reasons for the score>],
-  "analysis": "<detailed explanation of the assessment>"
+  "analysis": "<detailed explanation covering: 1) the source's reputation, 2) author credentials/background if available, 3) specific content quality and any important notes about claims, context, or things to watch for in THIS particular piece>"
 }
 
-Be fair but critical. A score of 50+ indicates generally trustworthy content.`;
+Be fair but critical. Evaluate the SPECIFIC CONTENT and author, not just the domain. A score of 50+ indicates generally trustworthy content.`;
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are a media literacy expert who evaluates the credibility of news sources and online content. Provide objective, balanced assessments.',
+          content: 'You are a media literacy expert who evaluates the credibility of news sources and online content. Analyze the SPECIFIC article/content, including author credentials and any important context or claims that readers should be aware of. Provide objective, balanced, and detailed assessments that go beyond just the domain reputation.',
         },
         {
           role: 'user',
