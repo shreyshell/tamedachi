@@ -139,16 +139,16 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
   return (
     <div className="flex justify-center items-center min-h-screen bg-black">
       {/* Fixed iPhone 16 Pro Max container (440x956) */}
-      <div className="relative w-[440px] h-[956px] bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2]">
+      <div className="relative w-[440px] h-[956px] bg-gradient-to-b from-[#b7bffb] to-[#ffc2c2] overflow-hidden">
         {/* Background Decorative Vectors - Exact Figma Positions */}
         
-        {/* Cloud 3 - X=-293, Y=23 */}
-        <div className="absolute" style={{ left: '-293px', top: '23px' }}>
+        {/* Cloud 3 - Adjusted to peek from left edge */}
+        <div className="absolute" style={{ left: '-200px', top: '23px' }}>
           <img src="/cloud3.svg" alt="" width={265} height={118} />
         </div>
 
-        {/* Cloud 2 - X=-283, Y=238 */}
-        <div className="absolute" style={{ left: '-283px', top: '238px' }}>
+        {/* Cloud 2 - Adjusted to peek from left edge */}
+        <div className="absolute" style={{ left: '-250px', top: '238px' }}>
           <img src="/cloud2.svg" alt="" width={400} height={163} />
         </div>
 
@@ -167,9 +167,9 @@ export default function DashboardClient({ initialPet, userEmail }: DashboardClie
           <img src="/station.svg" alt="" width={71} height={89} />
         </div>
 
-        {/* Field - X=-85, Y=793 */}
+        {/* Nature - X=-85, Y=793 */}
         <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-          <img src="/field.svg" alt="" width={610} height={163} />
+          <img src="/nature.svg" alt="" width={610} height={163} />
         </div>
 
         {/* Logout Button - X=337, Y=23 */}

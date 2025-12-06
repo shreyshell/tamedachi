@@ -54,7 +54,7 @@ export default function ScoreDisplay({
         <img src="/station.svg" alt="" width={71} height={89} />
       </div>
       <div className="absolute" style={{ left: '-85px', top: '793px' }}>
-        <img src="/field.svg" alt="" width={610} height={163} />
+        <img src="/nature.svg" alt="" width={610} height={163} />
       </div>
 
       {/* Modal Content */}
